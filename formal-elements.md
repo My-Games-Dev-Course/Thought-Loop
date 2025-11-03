@@ -10,7 +10,7 @@
 
 המשחק מיועד למחשב רגיל (PC) עם פקדי מקלדת ועכבר, ובעתיד אפשר להרחיב לפלטפורמות נוספות.
 
-![Thought Loop Concept](Thought Loop Concept.png)
+![Thought Loop Concept](Thought-Loop-Concept.png)
 *תמונה: רובוט במתקן ניסויים עם שכפול שלו פועלים יחד*
 
 ---
