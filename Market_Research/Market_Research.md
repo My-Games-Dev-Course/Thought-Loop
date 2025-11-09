@@ -119,10 +119,8 @@
 
 נביא כאן שתי תמונות מתוך כניסה פשוטה ל Google play שמראות מה המשחקים המובילים הן בצד הכללי והן תחת הקטגוריה פאזלים/משחקי חשיבה
 
-![General google play](General-google-play.jpg)
-
-![Puzzle google play](Puzzle-google-play.jpg)
-
+<img src="General-google-play.jpg" alt="General google play" width="300"/>
+<img src="Puzzle-google-play.jpg" alt="Puzzle google play" width="300"/>
 
 
 **App Store (iOS)**
