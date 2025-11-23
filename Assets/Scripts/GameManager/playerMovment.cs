@@ -98,13 +98,13 @@ public class playerMovment : MonoBehaviour
 
         //Debug.Log("Update called");
         //float inputX = Input.GetAxisRaw("Horizontal");
-        
+
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
         float inputX = moveInput.x;
         movement.x = inputX * speed * Time.deltaTime;
         transform.Translate(movement);
 
-        if(inputX != 0)
+        if (inputX != 0)
         {
             animator.SetBool("isRunning", true);
         }
@@ -149,7 +149,8 @@ public class playerMovment : MonoBehaviour
         XPosLastFrame = transform.position.x; // Update last frame position
     }
 
-    private void Jump() {
+    private void Jump()
+    {
         // Jumping - check if space is pressed
         if (isGrounded && jumpAction.WasPressedThisFrame())
         {

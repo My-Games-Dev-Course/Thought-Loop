@@ -28,7 +28,7 @@ public class ClonePlayback : MonoBehaviour
         {
             animator = GetComponentInChildren<Animator>();
         }
-        
+
         //if(recorderManager == null)
         //{
         //    Debug.LogError("[CloneSpawner] RecorderManager not assigned!");
