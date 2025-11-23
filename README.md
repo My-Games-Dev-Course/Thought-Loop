@@ -9,5 +9,10 @@
 
 ---
 [רכיבים רשמיים](Formal_Elements/formal-elements.md)  
+
+## תהליכי ליבה
+קישור למשחק - https://chanan-hash.itch.io/thought-loop
+
+
 חברי הצוות: דוד שטרן וחנן הלמן
 </div>
