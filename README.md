@@ -94,6 +94,12 @@
 
 ---
 
+## תרשים UML
+
+(Thought_Loop_UML.png)[תרשים UML]
+
+
+---
 ## 🎨 נכסים (Assets)
 
 - **Pixel Adventure 1** - ספרייטים לדמויות וסביבה
