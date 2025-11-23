@@ -96,7 +96,8 @@
 
 ## תרשים UML
 
-(Thought_Loop_UML.png)[תרשים UML]
+
+[Though Loop UML](Thought_Loop_UML.png)
 
 
 ---
