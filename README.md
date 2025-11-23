@@ -104,8 +104,6 @@
 ## 🎨 נכסים (Assets)
 
 - **Pixel Adventure 1** - ספרייטים לדמויות וסביבה
-- **TextMeshPro** - טקסט UI איכותי
-
 
 [רכיבים רשמיים](Formal_Elements/formal-elements.md)  
 
