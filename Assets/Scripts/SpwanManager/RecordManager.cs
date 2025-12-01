@@ -15,6 +15,7 @@ public class RecorderManager : MonoBehaviour
     private List<Vector2> scales = new List<Vector2>();
     private List<bool> flipXStates = new List<bool>();
     private List<bool> isRunningStates = new List<bool>();
+    private List<bool> isJumpingStates = new List<bool>();
 
     void Start()
     {
@@ -26,10 +27,13 @@ public class RecorderManager : MonoBehaviour
 
         // Auto-find components if not assigned
         if (playerSpriteRenderer == null)
+        {
             playerSpriteRenderer = player.GetComponentInChildren<SpriteRenderer>();
+        }
         if (playerAnimator == null)
+        {
             playerAnimator = player.GetComponentInChildren<Animator>();
-
+        }
         Debug.Log("[RecorderManager] Started recording player movements");
     }
 
@@ -42,6 +46,7 @@ public class RecorderManager : MonoBehaviour
             scales.Add(player.transform.localScale);
             flipXStates.Add(playerSpriteRenderer.flipX);
             isRunningStates.Add(playerAnimator.GetBool("isRunning"));
+            isJumpingStates.Add(playerAnimator.GetBool("isJumping"));
 
             if (positions.Count % frameNumber == 0)
             {
@@ -74,8 +79,10 @@ public class RecorderManager : MonoBehaviour
         return flipXStates;
     }
 
+    // Getting the animations
     public List<bool> GetIsRunningStates() => isRunningStates;
 
+    public List<bool> GetIsJumpingStates() => isJumpingStates;
     public void StopRecording()
     {
         isRecording = false;
@@ -89,6 +96,7 @@ public class RecorderManager : MonoBehaviour
         scales.Clear();
         flipXStates.Clear();
         isRunningStates.Clear();
+        isJumpingStates.Clear();
         Debug.Log("[RecorderManager] Cleared all recorded data");
     }
 }

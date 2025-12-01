@@ -86,6 +86,7 @@ public class playerMovment : MonoBehaviour
         ClampedMovment();
         FlipCharacterX();
         Jump();
+        UpdateJumpAnimation();
     }
 
     private void HandleMovment()
@@ -107,10 +108,12 @@ public class playerMovment : MonoBehaviour
         if (inputX != 0)
         {
             animator.SetBool("isRunning", true);
+            Debug.Log("Running animation triggered");
         }
         else
         {
             animator.SetBool("isRunning", false);
+            Debug.Log("Idle animation triggered");
         }
 
     }
@@ -156,6 +159,22 @@ public class playerMovment : MonoBehaviour
         {
             Debug.Log("Jump!");
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        }
+    }
+
+    // Update jump animation based on vertical velocity
+    private void UpdateJumpAnimation()
+    {
+        // If player is moving upward (jumping) or downward (falling) significantly
+        if (!isGrounded)
+        {
+            animator.SetBool("isJumping", true);
+            Debug.Log("Jumping animation triggered");
+        }
+        else
+        {
+            animator.SetBool("isJumping", false);
+            Debug.Log("Not jumping");
         }
     }
 

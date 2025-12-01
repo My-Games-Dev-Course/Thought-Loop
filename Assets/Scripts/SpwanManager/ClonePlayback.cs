@@ -8,6 +8,7 @@ public class ClonePlayback : MonoBehaviour
     private List<Vector2> scales;
     private List<bool> flipXStates;
     private List<bool> isRunningStates;
+    private List<bool> isJumpingStates;
     private int currentFrame = 0;
     private bool isPlaying = false;
 
@@ -35,13 +36,14 @@ public class ClonePlayback : MonoBehaviour
         //}
     }
 
-    public void StartPlayback(List<Vector2> pos, List<Quaternion> rot, List<Vector2> scl, List<bool> flipX, List<bool> running)
+    public void StartPlayback(List<Vector2> pos, List<Quaternion> rot, List<Vector2> scl, List<bool> flipX, List<bool> running, List<bool> jumping)
     {
         positions = pos;
         rotations = rot;
         scales = scl;
         flipXStates = flipX;
         isRunningStates = running;
+        isJumpingStates = jumping;
         currentFrame = 0; // initialize current frame to zero because starting form begigning of the frame
         isPlaying = true;
         Debug.Log($"[ClonePlayback] Started playback with {positions.Count} frames");
@@ -56,6 +58,12 @@ public class ClonePlayback : MonoBehaviour
             transform.localScale = scales[currentFrame];
             spriteRenderer.flipX = flipXStates[currentFrame];
             animator.SetBool("isRunning", isRunningStates[currentFrame]);
+            //animator.SetBool("isJumping", isJumpingStates[currentFrame]);
+            // Set jumping animation state
+            if (currentFrame < isJumpingStates.Count)
+            {
+                animator.SetBool("isJumping", isJumpingStates[currentFrame]);
+            }
             currentFrame++;
 
             if (currentFrame % frameNumber == 0)

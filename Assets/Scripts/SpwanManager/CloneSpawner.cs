@@ -25,6 +25,7 @@ public class CloneSpawner : MonoBehaviour
         var scales = recorderManager.GetScales();
         var flipXStates = recorderManager.GetFlipXStates();
         var isRunningStates = recorderManager.GetIsRunningStates();
+        var isJumpingStates = recorderManager.GetIsJumpingStates();
 
         if (positions.Count > 0)
         {
@@ -35,7 +36,7 @@ public class CloneSpawner : MonoBehaviour
             ClonePlayback playback = clone.GetComponent<ClonePlayback>();
             if (playback != null)
             {
-                playback.StartPlayback(positions, rotations, scales, flipXStates, isRunningStates);
+                playback.StartPlayback(positions, rotations, scales, flipXStates, isRunningStates, isJumpingStates);
                 Debug.Log("[CloneSpawner] Clone spawned and playback started!");
             }
             else
