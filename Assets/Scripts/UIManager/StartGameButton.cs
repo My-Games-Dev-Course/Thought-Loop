@@ -108,7 +108,7 @@ public class StartGameButton : MonoBehaviour
         }
     }
 
-    
+
     // Load scene with fade effect (by index)
     // Falls back to direct load if SceneFader doesn't exist
     private void LoadSceneWithFade(int index)

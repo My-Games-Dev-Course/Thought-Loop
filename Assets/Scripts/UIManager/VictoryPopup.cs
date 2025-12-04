@@ -17,7 +17,7 @@ public class VictoryPopup : MonoBehaviour
 
     [Header("Popup Settings")]
     [SerializeField] private string congratsMessage = "Congratulations!";
-    [SerializeField] private float ResumeGame  = 1.0f;
+    [SerializeField] private float ResumeGame = 1.0f;
 
     [Header("Next Scene Settings")]
     [SerializeField] private bool useBuildIndex = false;
@@ -52,9 +52,9 @@ public class VictoryPopup : MonoBehaviour
         }
     }
 
-    
+
     // Show the victory popup and pause the game
-    
+
     public void ShowVictory(string sceneName = "", int sceneIndex = -1)
     {
         if (isShowing) return;
@@ -92,9 +92,9 @@ public class VictoryPopup : MonoBehaviour
         Debug.Log("[VictoryPopup] Game paused. Time.timeScale = 0");
     }
 
-    
+
     // Hide the popup and resume the game
-    
+
     public void HidePopup()
     {
         if (popupPanel != null)
@@ -109,9 +109,9 @@ public class VictoryPopup : MonoBehaviour
         Debug.Log("[VictoryPopup] Game resumed. Time.timeScale = 1");
     }
 
-    
+
     /// Called when the "Next Level" button is clicked
-    
+
     private void OnNextLevelClicked()
     {
         Debug.Log("[VictoryPopup] Next Level button clicked!");
@@ -130,9 +130,9 @@ public class VictoryPopup : MonoBehaviour
         }
     }
 
-    
+
     // Load scene with fade effect (by name)
-    
+
     private void LoadSceneWithFade(string sceneName)
     {
         if (SceneFader.Instance != null)
@@ -148,9 +148,9 @@ public class VictoryPopup : MonoBehaviour
         }
     }
 
-    
+
     // Load scene with fade effect (by index)
-    
+
     private void LoadSceneWithFade(int index)
     {
         if (SceneFader.Instance != null)

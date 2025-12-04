@@ -237,7 +237,7 @@ public class SceneFader : MonoBehaviour
         if (!ValidateFadeImage()) return;
         StartCoroutine(FadeAndLoadScene(sceneName));
     }
-    
+
     // Fade to black, load scene by index, then fade from black
     public void FadeToScene(int sceneIndex)
     {
