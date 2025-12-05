@@ -86,6 +86,12 @@ public class Flag : MonoBehaviour
     [Tooltip("Show victory popup before loading next scene?")]
     [SerializeField] private bool useVictoryPopup = true;
 
+    // For tag detection
+    [Header("Settings")]
+    [Tooltip("Tag to detect (usually 'Player')")]
+    [SerializeField] private string targetTag = "Player";
+
+
     public enum SceneLoadMode
     {
         ByIndex,      // Use the scene index
@@ -95,7 +101,7 @@ public class Flag : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(targetTag))
         {
             if (useVictoryPopup)
             {
