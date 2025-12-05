@@ -1,127 +1,4 @@
-﻿//using UnityEngine;
-//using UnityEngine.UI;
-//using UnityEngine.SceneManagement;
-//using System.Collections;
-
-//public class SceneFader : MonoBehaviour
-//{
-//    public static SceneFader Instance { get; private set; }
-
-//    [SerializeField] private Image fadeImage;
-//    [SerializeField] private float fadeDuration = 1f;
-
-//    private void Awake()
-//    {
-//        // Singleton pattern - only one fader exists across scenes
-//        if (Instance == null)
-//        {
-//            Instance = this;
-//            DontDestroyOnLoad(gameObject);
-//        }
-//        else
-//        {
-//            Destroy(gameObject);
-//            return;
-//        }
-
-//        // Make sure we start invisible
-//        if (fadeImage != null)
-//        {
-//            Color c = fadeImage.color;
-//            c.a = 0f;
-//            fadeImage.color = c;
-//        }
-//    }
-
-//    // Fade to black, load scene, then fade from black
-//    public void FadeToScene(string sceneName)
-//    {
-//        StartCoroutine(FadeAndLoadScene(sceneName));
-//    }
-
-//    // Fade to black, load scene by index, then fade from black
-//    public void FadeToScene(int sceneIndex)
-//    {
-//        StartCoroutine(FadeAndLoadScene(sceneIndex));
-//    }
-
-//    private IEnumerator FadeAndLoadScene(string sceneName)
-//    {
-//        // Fade out (to black)
-//        yield return StartCoroutine(FadeOut());
-
-//        // Load the scene
-//        SceneManager.LoadScene(sceneName);
-
-//        // Fade in (from black)
-//        yield return StartCoroutine(FadeIn());
-//    }
-
-//    private IEnumerator FadeAndLoadScene(int sceneIndex)
-//    {
-//        // Fade out (to black)
-//        yield return StartCoroutine(FadeOut());
-
-//        // Load the scene
-//        SceneManager.LoadScene(sceneIndex);
-
-//        // Fade in (from black)
-//        yield return StartCoroutine(FadeIn());
-//    }
-
-//    // Fade out (screen becomes black)
-//    private IEnumerator FadeOut()
-//    {
-//        float elapsedTime = 0f;
-//        Color c = fadeImage.color;
-
-//        while (elapsedTime < fadeDuration)
-//        {
-//            elapsedTime += Time.deltaTime;
-//            c.a = Mathf.Clamp01(elapsedTime / fadeDuration);
-//            fadeImage.color = c;
-//            yield return null;
-//        }
-
-//        // Ensure fully opaque
-//        c.a = 1f;
-//        fadeImage.color = c;
-//    }
-
-//    // Fade in (black screen becomes clear)
-
-//    private IEnumerator FadeIn()
-//    {
-//        float elapsedTime = 0f;
-//        Color c = fadeImage.color;
-
-//        while (elapsedTime < fadeDuration)
-//        {
-//            elapsedTime += Time.deltaTime;
-//            c.a = Mathf.Clamp01(1f - (elapsedTime / fadeDuration));
-//            fadeImage.color = c;
-//            yield return null;
-//        }
-
-//        // Ensure fully transparent
-//        c.a = 0f;
-//        fadeImage.color = c;
-//    }
-
-//    // Just fade in (useful for scene start)
-//    public void FadeInOnly()
-//    {
-//        StartCoroutine(FadeIn());
-//    }
-
-//    // Just fade out (useful for scene end)
-//    public void FadeOutOnly()
-//    {
-//        StartCoroutine(FadeOut());
-//    }
-//}
-
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -174,34 +51,22 @@ public class SceneFader : MonoBehaviour
         Debug.Log("[SceneFader] Initialized with alpha = 0");
     }
 
-    // Automatically find FadePanel in the scene
+
     private void FindFadePanel()
     {
         Debug.Log($"[SceneFader] Searching for FadePanel named '{fadePanelName}'...");
 
-        // Method 1: Find by name
-        GameObject fadePanelObj = GameObject.Find(fadePanelName);
-        if (fadePanelObj != null)
-        {
-            fadeImage = fadePanelObj.GetComponent<Image>();
-            if (fadeImage != null)
-            {
-                Debug.Log($"[SceneFader] ✅ Found FadePanel by name: {fadePanelName}");
-                return;
-            }
-        }
-
-        // Method 2: Find in Canvas
-        Canvas[] canvases = Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+        // Search all canvases, including inactive children
+        Canvas[] canvases = Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);  // updated to use FindObjectsByType
         foreach (Canvas canvas in canvases)
         {
-            Transform fadePanelTransform = canvas.transform.Find(fadePanelName);
-            if (fadePanelTransform != null)
+            Image[] images = canvas.GetComponentsInChildren<Image>(true); // include inactive
+            foreach (Image img in images)
             {
-                fadeImage = fadePanelTransform.GetComponent<Image>();
-                if (fadeImage != null)
+                if (img.name == fadePanelName)
                 {
-                    Debug.Log($"[SceneFader] Found FadePanel in Canvas: {canvas.name}");
+                    fadeImage = img;
+                    Debug.Log($"[SceneFader] ✅ Found FadePanel in Canvas '{canvas.name}' at path '{(img.transform)}'");
                     return;
                 }
             }
@@ -223,10 +88,10 @@ public class SceneFader : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Re-find FadePanel in new scene
-        if (fadeImage == null && autoFindFadePanel)
+        // If the current fadeImage got destroyed on scene unload, re-find it.
+        if (autoFindFadePanel && (fadeImage == null || !fadeImage))
         {
-            Debug.Log($"[SceneFader] Scene '{scene.name}' loaded, searching for FadePanel...");
+            Debug.Log($"[SceneFader] Scene '{scene.name}' loaded, re-searching for FadePanel...");
             FindFadePanel();
         }
     }
@@ -243,6 +108,13 @@ public class SceneFader : MonoBehaviour
     {
         if (!ValidateFadeImage()) return;
         StartCoroutine(FadeAndLoadScene(sceneIndex));
+    }
+
+    // Load current scene with fade according to next scene set in SceneManager
+    public void FadeToScene()
+    {
+        if (!ValidateFadeImage()) return;
+        StartCoroutine(FadeAndLoadScene());
     }
 
     private IEnumerator FadeAndLoadScene(string sceneName)
@@ -290,6 +162,35 @@ public class SceneFader : MonoBehaviour
             FindFadePanel();
         }
 
+        // Fade in (from black)
+        if (fadeImage != null)
+        {
+            yield return StartCoroutine(FadeIn());
+        }
+    }
+
+    // For loading also automatically the next scene in build settings
+
+    private IEnumerator FadeAndLoadScene()
+    {
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
+        {
+            Debug.LogWarning("[SceneFader] No next scene to load in build settings.");
+            yield break;
+        }
+        Debug.Log($"[SceneFader] Starting fade to next scene index: {nextSceneIndex}");
+        // Fade out (to black)
+        yield return StartCoroutine(FadeOut());
+        // Load the next scene
+        SceneManager.LoadScene(nextSceneIndex);
+        // Wait one frame for scene to load
+        yield return null;
+        // Re-find FadePanel in new scene
+        if (fadeImage == null)
+        {
+            FindFadePanel();
+        }
         // Fade in (from black)
         if (fadeImage != null)
         {
@@ -369,8 +270,7 @@ public class SceneFader : MonoBehaviour
         StartCoroutine(FadeOut());
     }
 
-    /// <summary>
-    /// Validate that fadeImage is assigned and not null
+    // Validate that fadeImage is assigned and not null
     private bool ValidateFadeImage()
     {
         if (fadeImage == null)

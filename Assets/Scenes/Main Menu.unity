@@ -132,12 +132,20 @@ PrefabInstance:
       value: PlayButton
       objectReference: {fileID: 0}
     - target: {fileID: 3117879210986583176, guid: 3ee4eb5106a229e4899f359857230969, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 801.339
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117879210986583176, guid: 3ee4eb5106a229e4899f359857230969, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 474.0432
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117879210986583176, guid: 3ee4eb5106a229e4899f359857230969, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -2.3
+      value: -2.1087
       objectReference: {fileID: 0}
     - target: {fileID: 3117879210986583176, guid: 3ee4eb5106a229e4899f359857230969, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 38.7
+      value: 38.3174
       objectReference: {fileID: 0}
     - target: {fileID: 6595429902393924283, guid: 3ee4eb5106a229e4899f359857230969, type: 3}
       propertyPath: m_Pivot.x

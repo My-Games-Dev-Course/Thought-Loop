@@ -222,4 +222,7 @@ public class Flag : MonoBehaviour
             SceneManager.LoadScene(index);
         }
     }
+
+    // Want to do also fade if it is by next in build, without specifying index or name
+
 }

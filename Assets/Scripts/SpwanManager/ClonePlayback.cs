@@ -1,5 +1,7 @@
-using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
+using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ClonePlayback : MonoBehaviour
 {
@@ -51,6 +53,12 @@ public class ClonePlayback : MonoBehaviour
 
     void Update()
     {
+        // Stop playback when the game is paused(victory popup up)
+        if (Time.timeScale == 0f)
+        {
+            return;
+        }
+
         if (isPlaying && currentFrame < positions.Count)
         {
             transform.position = positions[currentFrame];
