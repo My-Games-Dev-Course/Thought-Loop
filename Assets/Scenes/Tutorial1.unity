@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -845,6 +845,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2805290576002872204, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 5862.842
+      objectReference: {fileID: 0}
+    - target: {fileID: 2805290576002872204, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 849.8801
+      objectReference: {fileID: 0}
+    - target: {fileID: 2805290576002872204, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 16.065
+      objectReference: {fileID: 0}
+    - target: {fileID: 2805290576002872204, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 21.2866
+      objectReference: {fileID: 0}
     - target: {fileID: 7834554071350433421, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_Name
       value: VictoryPopup
@@ -993,11 +1009,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6469273897125794205, guid: 63f1e975b8561894c839f1598ab53a56, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 298
+      value: 361
       objectReference: {fileID: 0}
     - target: {fileID: 6469273897125794205, guid: 63f1e975b8561894c839f1598ab53a56, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 153
+      value: 183
       objectReference: {fileID: 0}
     - target: {fileID: 6469273897125794205, guid: 63f1e975b8561894c839f1598ab53a56, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

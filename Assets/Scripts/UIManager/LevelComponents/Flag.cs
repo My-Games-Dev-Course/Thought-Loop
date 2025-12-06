@@ -109,7 +109,7 @@ public class Flag : MonoBehaviour
             }
             else
             {
-                LoadNextScene();
+                //LoadNextScene();
             }
         }
     }
@@ -120,7 +120,7 @@ public class Flag : MonoBehaviour
         if (VictoryPopup.Instance == null)
         {
             Debug.LogError("[Flag] VictoryPopup not found! Loading scene directly instead.");
-            LoadNextScene();
+            //LoadNextScene();
             return;
         }
 
@@ -161,73 +161,73 @@ public class Flag : MonoBehaviour
     }
 
     // Load next scene directly (no popup)
-    private void LoadNextScene()
-    {
-        switch (loadMode)
-        {
-            case SceneLoadMode.ByIndex:
-                Debug.Log($"[Flag] Loading scene by index: {nextSceneIndex}");
-                LoadSceneWithFade(nextSceneIndex);
-                break;
+    //private void LoadNextScene()
+    //{
+    //    switch (loadMode)
+    //    {
+    //        case SceneLoadMode.ByIndex:
+    //            Debug.Log($"[Flag] Loading scene by index: {nextSceneIndex}");
+    //            LoadSceneWithFade(nextSceneIndex);
+    //            break;
 
-            case SceneLoadMode.ByName:
-                if (!string.IsNullOrEmpty(nextSceneName))
-                {
-                    Debug.Log($"[Flag] Loading scene by name: {nextSceneName}");
-                    LoadSceneWithFade(nextSceneName);
-                }
-                else
-                {
-                    Debug.LogError("[Flag] Scene name is empty!");
-                }
-                break;
+    //        case SceneLoadMode.ByName:
+    //            if (!string.IsNullOrEmpty(nextSceneName))
+    //            {
+    //                Debug.Log($"[Flag] Loading scene by name: {nextSceneName}");
+    //                LoadSceneWithFade(nextSceneName);
+    //            }
+    //            else
+    //            {
+    //                Debug.LogError("[Flag] Scene name is empty!");
+    //            }
+    //            break;
 
-            case SceneLoadMode.NextInBuild:
-                int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-                int nextScene = currentSceneIndex + 1;
+    //        case SceneLoadMode.NextInBuild:
+    //            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+    //            int nextScene = currentSceneIndex + 1;
 
-                if (nextScene < SceneManager.sceneCountInBuildSettings)
-                {
-                    Debug.Log($"[Flag] Loading next scene in build order: {nextScene}");
-                    LoadSceneWithFade(nextScene);
-                }
-                else
-                {
-                    Debug.LogWarning("[Flag] No next scene in build settings!");
-                }
-                break;
-        }
-    }
+    //            if (nextScene < SceneManager.sceneCountInBuildSettings)
+    //            {
+    //                Debug.Log($"[Flag] Loading next scene in build order: {nextScene}");
+    //                LoadSceneWithFade(nextScene);
+    //            }
+    //            else
+    //            {
+    //                Debug.LogWarning("[Flag] No next scene in build settings!");
+    //            }
+    //            break;
+    //    }
+    //}
 
-    // Load scene with fade effect (by name)
-    private void LoadSceneWithFade(string sceneName)
-    {
-        if (SceneFader.Instance != null)
-        {
-            SceneFader.Instance.FadeToScene(sceneName);
-            Debug.Log($"[Flag] Loading scene '{sceneName}' with fade effect");
-        }
-        else
-        {
-            Debug.LogWarning("[Flag] SceneFader not found! Loading scene without fade effect.");
-            SceneManager.LoadScene(sceneName);
-        }
-    }
+    //// Load scene with fade effect (by name)
+    //private void LoadSceneWithFade(string sceneName)
+    //{
+    //    if (SceneFader.Instance != null)
+    //    {
+    //        SceneFader.Instance.FadeToScene(sceneName);
+    //        Debug.Log($"[Flag] Loading scene '{sceneName}' with fade effect");
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("[Flag] SceneFader not found! Loading scene without fade effect.");
+    //        SceneManager.LoadScene(sceneName);
+    //    }
+    //}
 
-    // Load scene with fade effect (by index)
-    private void LoadSceneWithFade(int index)
-    {
-        if (SceneFader.Instance != null)
-        {
-            SceneFader.Instance.FadeToScene(index);
-            Debug.Log($"[Flag] Loading scene index {index} with fade effect");
-        }
-        else
-        {
-            Debug.LogWarning("[Flag] SceneFader not found! Loading scene without fade effect.");
-            SceneManager.LoadScene(index);
-        }
-    }
+    //// Load scene with fade effect (by index)
+    //private void LoadSceneWithFade(int index)
+    //{
+    //    if (SceneFader.Instance != null)
+    //    {
+    //        SceneFader.Instance.FadeToScene(index);
+    //        Debug.Log($"[Flag] Loading scene index {index} with fade effect");
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("[Flag] SceneFader not found! Loading scene without fade effect.");
+    //        SceneManager.LoadScene(index);
+    //    }
+    //}
 
     // Want to do also fade if it is by next in build, without specifying index or name
 
