@@ -26,6 +26,32 @@ public class VictoryPopup : MonoBehaviour
 
     private bool isShowing = false;
 
+    //void Awake()
+    //{
+    //    // Singleton pattern
+    //    if (Instance == null)
+    //    {
+    //        Instance = this;
+    //    }
+    //    else
+    //    {
+    //        Destroy(gameObject);
+    //        return;
+    //    }
+
+    //    // Make sure popup is hidden at start
+    //    if (popupPanel != null)
+    //    {
+    //        popupPanel.SetActive(false);
+    //    }
+
+    //    // Setup button listener
+    //    if (nextLevelButton != null)
+    //    {
+    //        nextLevelButton.onClick.AddListener(OnNextLevelClicked);
+    //    }
+    //}
+
     void Awake()
     {
         // Singleton pattern
@@ -39,7 +65,19 @@ public class VictoryPopup : MonoBehaviour
             return;
         }
 
-        // Make sure popup is hidden at start
+        // Reset state on scene load
+        ResetPopupState();
+    }
+
+    private void ResetPopupState()
+    {
+        // Reset showing state
+        isShowing = false;
+
+        // Make sure game is not paused
+        Time.timeScale = 1f;
+
+        // Make sure popup is hidden
         if (popupPanel != null)
         {
             popupPanel.SetActive(false);
@@ -48,8 +86,11 @@ public class VictoryPopup : MonoBehaviour
         // Setup button listener
         if (nextLevelButton != null)
         {
+            nextLevelButton.onClick.RemoveAllListeners(); // Clear old listeners
             nextLevelButton.onClick.AddListener(OnNextLevelClicked);
         }
+
+        Debug.Log("[VictoryPopup] Popup state reset");
     }
 
 

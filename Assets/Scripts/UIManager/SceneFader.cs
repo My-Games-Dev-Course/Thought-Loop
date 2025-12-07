@@ -15,6 +15,8 @@ public class SceneFader : MonoBehaviour
     [SerializeField] private bool autoFindFadePanel = true;
     [SerializeField] private string fadePanelName = "FadePanel";
 
+    private Coroutine currentFadeCoroutine; // Track current fade coroutine
+
     private void Awake()
     {
         // Singleton pattern - only one fader exists across scenes
@@ -44,13 +46,25 @@ public class SceneFader : MonoBehaviour
             return;
         }
 
-        // Make sure we start invisible
-        Color c = fadeImage.color;
-        c.a = 0f;
-        fadeImage.color = c;
-        Debug.Log("[SceneFader] Initialized with alpha = 0");
+        //// Make sure we start invisible
+        //Color c = fadeImage.color;
+        //c.a = 0f;
+        //fadeImage.color = c;
+        //Debug.Log("[SceneFader] Initialized with alpha = 0");
+
+        ResetFadeImage();
     }
 
+    private void ResetFadeImage()
+    {
+        if (fadeImage != null)
+        {
+            Color c = fadeImage.color;
+            c.a = 0f;
+            fadeImage.color = c;
+            Debug.Log("[SceneFader] Reset fade image alpha to 0");
+        }
+    }
 
     private void FindFadePanel()
     {
@@ -86,13 +100,137 @@ public class SceneFader : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    //private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    //{
+    //    // If the current fadeImage got destroyed on scene unload, re-find it.
+    //    if (autoFindFadePanel && (fadeImage == null || !fadeImage))
+    //    {
+    //        Debug.Log($"[SceneFader] Scene '{scene.name}' loaded, re-searching for FadePanel...");
+    //        FindFadePanel();
+    //    }
+    //}
+
+    //// Fade to black, load scene, then fade from black
+    //public void FadeToScene(string sceneName)
+    //{
+    //    if (!ValidateFadeImage()) return;
+    //    StartCoroutine(FadeAndLoadScene(sceneName));
+    //}
+
+    //// Fade to black, load scene by index, then fade from black
+    //public void FadeToScene(int sceneIndex)
+    //{
+    //    if (!ValidateFadeImage()) return;
+    //    StartCoroutine(FadeAndLoadScene(sceneIndex));
+    //}
+
+    //// Load current scene with fade according to next scene set in SceneManager
+    //public void FadeToScene()
+    //{
+    //    if (!ValidateFadeImage()) return;
+    //    StartCoroutine(FadeAndLoadScene());
+    //}
+
+    //private IEnumerator FadeAndLoadScene(string sceneName)
+    //{
+    //    Debug.Log($"[SceneFader] Starting fade to scene: {sceneName}");
+
+    //    // Fade out (to black)
+    //    yield return StartCoroutine(FadeOut());
+
+    //    // Load the scene
+    //    SceneManager.LoadScene(sceneName);
+
+    //    // Wait one frame for scene to load
+    //    yield return null;
+
+    //    // Re-find FadePanel in new scene
+    //    if (fadeImage == null)
+    //    {
+    //        FindFadePanel();
+    //    }
+
+    //    // Fade in (from black)
+    //    if (fadeImage != null)
+    //    {
+    //        yield return StartCoroutine(FadeIn());
+    //    }
+    //}
+
+    //private IEnumerator FadeAndLoadScene(int sceneIndex)
+    //{
+    //    Debug.Log($"[SceneFader] Starting fade to scene index: {sceneIndex}");
+
+    //    // Fade out (to black)
+    //    yield return StartCoroutine(FadeOut());
+
+    //    // Load the scene
+    //    SceneManager.LoadScene(sceneIndex);
+
+    //    // Wait one frame for scene to load
+    //    yield return null;
+
+    //    // Re-find FadePanel in new scene
+    //    if (fadeImage == null)
+    //    {
+    //        FindFadePanel();
+    //    }
+
+    //    // Fade in (from black)
+    //    if (fadeImage != null)
+    //    {
+    //        yield return StartCoroutine(FadeIn());
+    //    }
+    //}
+
+    //// For loading also automatically the next scene in build settings
+
+    //private IEnumerator FadeAndLoadScene()
+    //{
+    //    int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+    //    if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
+    //    {
+    //        Debug.LogWarning("[SceneFader] No next scene to load in build settings.");
+    //        yield break;
+    //    }
+    //    Debug.Log($"[SceneFader] Starting fade to next scene index: {nextSceneIndex}");
+    //    // Fade out (to black)
+    //    yield return StartCoroutine(FadeOut());
+    //    // Load the next scene
+    //    SceneManager.LoadScene(nextSceneIndex);
+    //    // Wait one frame for scene to load
+    //    yield return null;
+    //    // Re-find FadePanel in new scene
+    //    if (fadeImage == null)
+    //    {
+    //        FindFadePanel();
+    //    }
+    //    // Fade in (from black)
+    //    if (fadeImage != null)
+    //    {
+    //        yield return StartCoroutine(FadeIn());
+    //    }
+    //}
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // Stop any running fade coroutines
+        if (currentFadeCoroutine != null)
+        {
+            StopCoroutine(currentFadeCoroutine);
+            currentFadeCoroutine = null;
+            Debug.Log("[SceneFader] Stopped previous fade coroutine on scene load");
+        }
+
+        // Reset fade image to transparent
+        ResetFadeImage();
+
         // If the current fadeImage got destroyed on scene unload, re-find it.
         if (autoFindFadePanel && (fadeImage == null || !fadeImage))
         {
             Debug.Log($"[SceneFader] Scene '{scene.name}' loaded, re-searching for FadePanel...");
             FindFadePanel();
+            ResetFadeImage();
         }
     }
 
@@ -100,21 +238,42 @@ public class SceneFader : MonoBehaviour
     public void FadeToScene(string sceneName)
     {
         if (!ValidateFadeImage()) return;
-        StartCoroutine(FadeAndLoadScene(sceneName));
+
+        // Stop any existing fade
+        if (currentFadeCoroutine != null)
+        {
+            StopCoroutine(currentFadeCoroutine);
+        }
+
+        currentFadeCoroutine = StartCoroutine(FadeAndLoadScene(sceneName));
     }
 
     // Fade to black, load scene by index, then fade from black
     public void FadeToScene(int sceneIndex)
     {
         if (!ValidateFadeImage()) return;
-        StartCoroutine(FadeAndLoadScene(sceneIndex));
+
+        // Stop any existing fade
+        if (currentFadeCoroutine != null)
+        {
+            StopCoroutine(currentFadeCoroutine);
+        }
+
+        currentFadeCoroutine = StartCoroutine(FadeAndLoadScene(sceneIndex));
     }
 
     // Load current scene with fade according to next scene set in SceneManager
     public void FadeToScene()
     {
         if (!ValidateFadeImage()) return;
-        StartCoroutine(FadeAndLoadScene());
+
+        // Stop any existing fade
+        if (currentFadeCoroutine != null)
+        {
+            StopCoroutine(currentFadeCoroutine);
+        }
+
+        currentFadeCoroutine = StartCoroutine(FadeAndLoadScene());
     }
 
     private IEnumerator FadeAndLoadScene(string sceneName)
@@ -141,6 +300,8 @@ public class SceneFader : MonoBehaviour
         {
             yield return StartCoroutine(FadeIn());
         }
+
+        currentFadeCoroutine = null;
     }
 
     private IEnumerator FadeAndLoadScene(int sceneIndex)
@@ -167,9 +328,9 @@ public class SceneFader : MonoBehaviour
         {
             yield return StartCoroutine(FadeIn());
         }
-    }
 
-    // For loading also automatically the next scene in build settings
+        currentFadeCoroutine = null;
+    }
 
     private IEnumerator FadeAndLoadScene()
     {
@@ -177,6 +338,7 @@ public class SceneFader : MonoBehaviour
         if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
         {
             Debug.LogWarning("[SceneFader] No next scene to load in build settings.");
+            currentFadeCoroutine = null;
             yield break;
         }
         Debug.Log($"[SceneFader] Starting fade to next scene index: {nextSceneIndex}");
@@ -196,6 +358,8 @@ public class SceneFader : MonoBehaviour
         {
             yield return StartCoroutine(FadeIn());
         }
+
+        currentFadeCoroutine = null;
     }
 
     // Fade out (screen becomes black)
