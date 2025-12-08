@@ -143,55 +143,105 @@
 ### 7) הצע רעיון לשלב חדש
 שחקנים שמציעים שלבים מרגישים שהם חלק פעיל מהעיצוב, ולעיתים מציעים רעיונות מצוינים להרחבת המשחק.
 
+---## תיעוד של חלקי הקוד
+
+### 1. מכניקת הקלטה ושחזור (Recording & Playback)
+
+#### `RecorderManager.cs` – הקלטת תנועות השחקן  
+- מתעד בכל פריים: מיקום (`positions`), סיבוב (`rotations`), גודל (`scales`), והיפוך ספרייט (`flipXStates`).
+- מתעד מצבי אנימציה: `isRunning`, `isJumping`.
+- פונקציה עיקרית לדוגמה:
+   sharp
+    void Update()
+    {
+        if (isRecording)
+        {
+            positions.Add(player.transform.position);
+            // ... עדכון כל שאר הרשימות ...
+        }
+    }
+    - פונקציות עזר:  
+    - `StopRecording()` ‒ עוצר הקלטה  
+    - `ClearRecording()` ‒ מאפס  
+    - `GetPositions()`/`GetRotations()` וכו'
+
+#### `ClonePlayback.cs` – שחזור מאקרו תנועות  
+- מקבל את כל הרשימות מה־RecorderManager.
+- משחזר מיקום/סיבוב/סקייל/אנימציה פריים-אחר-פריים:
+   sharp
+    void Update()
+    {
+        if (isPlaying)
+        {
+            transform.position = positions[currentFrame];
+            animator.SetBool("isRunning", isRunningStates[currentFrame]);
+            // ... שאר המשתנים ...
+        }
+    }
+    ---
+
+### 2. מערכת ניהול השכפולים (Clone Management)
+
+#### `CloneSpawner.cs` – יצירת שכפול  
+- עוצר הקלטה:
+   sharp
+    recorderManager.StopRecording();
+    - יוצר שכפול חדש ומתחיל השמעה מהנתונים:  
+   sharp
+    playback.StartPlayback(positions, rotations, ...);
+    - מסמן את השכפול ב־`tag = "Clone"`
+
+#### `CloneTimer.cs` – טיימר ותצוגה  
+- סופר לאחור, ומפעיל יצירת שכפול כשתם הזמן:
+   sharp
+    if (timer <= 0)
+        cloneSpawner.SpawnClone();
+    ---
+
+### 3. מכניקות פאזל
+
+#### `PressureButton.cs` – כפתור לחיץ  
+- משתמש ב־Trigger לזיהוי דריכה:
+   sharp
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        isPressed = true;
+        animator.SetBool("isPressed", true);
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        isPressed = false;
+        animator.SetBool("isPressed", false);
+    }
+    - פונקציית עזר: `IsPressed()`
+
+#### `MovingWall.cs` – קיר נע  
+- נע מעלה/מטה ב-Update לפי המצב:
+   sharp
+    if (button.IsPressed())
+        // הקיר עולה
+    else
+        // הקיר יורד
+    ---
+
+### 4. מהלכי שלב
+
+- התנגשות עם שכפול → אתחול סצנה (ראו `playerMovment.cs`)
+- הגעה לדגל → VictoryPopup וטעינת שלב (ראו `Flag.cs`, `VictoryPopup.cs`)
+
 ---
-## תיעוד של חלקי הקוד
 
-## 1. מכניקת הקלטה ושחזור (Recording & Playback)
+### 5. ארכיטקטורה מודולרית
 
-### RecorderManager – הקלטת תנועות השחקן (`RecordManager.cs`)
-- מקליט בכל פריים: מיקום, סיבוב, גודל.
-- מקליט מצבי אנימציה: `isRunning`, `isJumping`.
-- מקליט היפוך ספרייט (`flipX`).
-- שומר הכל ברשימות לשחזור מאוחר.
-
-### ClonePlayback – שחזור התנועות (`ClonePlayback.cs`)
-- מקבל את כל המידע מה־RecorderManager ומשחזר פריים־אחר־פריים.
-- מעדכן מיקום/סיבוב/סקייל, מצב ספרייט ופרמטרי אנימציה בזמן אמת.
-- נעצר אוטומטית כשהמשחק בפאוז (למשל בזמן VictoryPopup).
-
-## 2. מערכת ניהול השכפולים (Clone Management)
-
-### CloneSpawner – יצירת שכפולים (`CloneSpawner.cs`)
-- מפסיק הקלטה, יוצר שכפול חדש ומתחיל שחזור עם הנתונים שהוקלטו.
-- מציב את השכפול בפריים הראשון של ההקלטה ומסמן אותו כ־`Clone` לזיהוי התנגשויות.
-
-### CloneTimer – טיימר ותצוגת ספירה (`CloneTimer.cs`)
-- מציג טקסט “Clone in: X”.
-- מפעיל את CloneSpawner כשהספירה מגיעה לאפס.
-- ניתן לכוון אורך טיימר שונה לכל שלב.
-
-## 3. מכניקות פאזל
-
-### PressureButton – כפתור לחיץ (`PressureButton.cs`)
-- מבוסס Trigger Collider עם אנימציות Pressed/Idle.
-- פונקציה `IsPressed()` לבדיקת מצב.
-
-### MovingWall – קיר נע (`MovingWall.cs`)
-- עולה כשהכפתור(ים) לחוצים, יורד כשהם משוחררים.
-
-## 4. התנהלות שלב
-
-- התנגשות עם שכפול → אתחול סצנה (`playerMovment.cs`, `CrushDetector.cs`, `ResetButton.cs`).
-- הגעה לדגל → VictoryPopup וטעינת השלב הבא עם Fade (ראה `Flag.cs`, `VictoryPopup.cs`, `SceneFader.cs`).
-
-## 5. ארכיטקטורה מודולרית
-
-- Player – תנועה וקלט בלבד.
-- RecorderManager – הקלטת פריימים בלבד.
-- CloneSpawner – יצירת שכפולים בלבד.
-- ClonePlayback – שחזור בלבד.
-- Timer – ספירה לאחור בלבד.
-- Puzzle Components – כפתורים, קירות ומנגנוני שליטה.
+- כל מחלקה אחראית רק להתנהגות יחידה.
+- ניתן לשלוף/להחליף רכיב בקלות.
+- דוג', חתימות בולטות:
+    - תנועה: `playerMovment.cs`
+    - הקלטה: `RecorderManager.cs`
+    - יצירת שכפול: `CloneSpawner.cs`
+    - השמעה: `ClonePlayback.cs`
+    - ספירה: `CloneTimer.cs`
+    - כפתור/קיר/הגדרות פאזל: `PressureButton.cs`, `MovingWall.cs`, ...
 
 ---
 ## 🎨 נכסים (Assets)
