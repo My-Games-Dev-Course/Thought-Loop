@@ -151,7 +151,7 @@
 #### `RecorderManager.cs` – הקלטת תנועות השחקן  
 - מתעד בכל פריים: מיקום (`positions`), סיבוב (`rotations`), גודל (`scales`), והיפוך ספרייט (`flipXStates`).
 - מתעד מצבי אנימציה: `isRunning`, `isJumping`.
-- פונקציה עיקרית (`Update`), בה מתווספים כל הנתונים למשל    
+- פונקציה עיקרית (`Update`), בה מתווספים כל הנתונים למשל      
   `positions.Add(player.transform.position);`
 
     - פונקציות עזר:  
@@ -161,10 +161,10 @@
 
 #### `ClonePlayback.cs` – שחזור מאקרו תנועות  
 - מקבל את כל הרשימות מה־RecorderManager.
-- משחזר מיקום/סיבוב/סקייל/אנימציה פריים-אחר-פריים למשל:
- - למיקום:  
+- משחזר מיקום/סיבוב/סקייל/אנימציה פריים-אחר-פריים למשל:  
+ - למיקום:    
   `transform.position = positions[currentFrame];`
-- לאנימצית ריצה:  
+- לאנימצית ריצה:    
   `animator.SetBool("isRunning", isRunningStates[currentFrame]);`
 
   ---
@@ -174,7 +174,7 @@
 #### `CloneSpawner.cs` – יצירת שכפול  
 - עוצר הקלטה  
 `recorderManager.StopRecording();`
-    - יוצר שכפול חדש ומתחיל השמעה מהנתונים:    
+    - יוצר שכפול חדש ומתחיל השמעה מהנתונים:      
 `playback.StartPlayback(positions, rotations, ...);`
     - מסמן את השכפול ב־ `tag = "Clone"`
 
@@ -198,7 +198,7 @@ if (timer <= 0)
 
 #### `MovingWall.cs` – קיר נע  
 
-מחזיק מערך של כפתורים וכשכולם לחוצים יעלה את הקיר (עוזר לעשות שלב מרובה כפתורים)  
+מחזיק מערך של כפתורים וכשכולם לחוצים יעלה את הקיר (עוזר לעשות שלב מרובה כפתורים)    
 `private bool AreAllButtonsPressed()`
 
 ---
