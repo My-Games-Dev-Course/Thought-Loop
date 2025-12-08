@@ -143,23 +143,19 @@
 ### 7) הצע רעיון לשלב חדש
 שחקנים שמציעים שלבים מרגישים שהם חלק פעיל מהעיצוב, ולעיתים מציעים רעיונות מצוינים להרחבת המשחק.
 
----## תיעוד של חלקי הקוד
+---
+## תיעוד של חלקי הקוד
 
 ### 1. מכניקת הקלטה ושחזור (Recording & Playback)
 
 #### `RecorderManager.cs` – הקלטת תנועות השחקן  
 - מתעד בכל פריים: מיקום (`positions`), סיבוב (`rotations`), גודל (`scales`), והיפוך ספרייט (`flipXStates`).
 - מתעד מצבי אנימציה: `isRunning`, `isJumping`.
-- פונקציה עיקרית לדוגמה:
-   sharp
-    void Update()
-    {
-        if (isRecording)
-        {
-            positions.Add(player.transform.position);
-            // ... עדכון כל שאר הרשימות ...
-        }
-    }
+- פונקציה עיקרית (`Update`), בה מתווספים כל הנתונים למשל
+  `sharp
+  positions.Add(player.transform.position);
+  `
+
     - פונקציות עזר:  
     - `StopRecording()` ‒ עוצר הקלטה  
     - `ClearRecording()` ‒ מאפס  
@@ -168,7 +164,9 @@
 #### `ClonePlayback.cs` – שחזור מאקרו תנועות  
 - מקבל את כל הרשימות מה־RecorderManager.
 - משחזר מיקום/סיבוב/סקייל/אנימציה פריים-אחר-פריים:
-   sharp
+  
+  `
+  sharp
     void Update()
     {
         if (isPlaying)
@@ -178,51 +176,42 @@
             // ... שאר המשתנים ...
         }
     }
-    ---
+  `
+
+  ---
 
 ### 2. מערכת ניהול השכפולים (Clone Management)
 
 #### `CloneSpawner.cs` – יצירת שכפול  
-- עוצר הקלטה:
-   sharp
-    recorderManager.StopRecording();
+- עוצר הקלטה
+`recorderManager.StopRecording();`
     - יוצר שכפול חדש ומתחיל השמעה מהנתונים:  
-   sharp
-    playback.StartPlayback(positions, rotations, ...);
+`playback.StartPlayback(positions, rotations, ...);`
     - מסמן את השכפול ב־`tag = "Clone"`
 
 #### `CloneTimer.cs` – טיימר ותצוגה  
 - סופר לאחור, ומפעיל יצירת שכפול כשתם הזמן:
-   sharp
+`
+  sharp
     if (timer <= 0)
         cloneSpawner.SpawnClone();
-    ---
+`
+
+---
 
 ### 3. מכניקות פאזל
 
 #### `PressureButton.cs` – כפתור לחיץ  
-- משתמש ב־Trigger לזיהוי דריכה:
-   sharp
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        isPressed = true;
-        animator.SetBool("isPressed", true);
-    }
-    void OnTriggerExit2D(Collider2D other)
-    {
-        isPressed = false;
-        animator.SetBool("isPressed", false);
-    }
+- משתמש ב־Trigger לזיהוי דריכה ולהפעיל את האנימציה:
+
     - פונקציית עזר: `IsPressed()`
 
 #### `MovingWall.cs` – קיר נע  
-- נע מעלה/מטה ב-Update לפי המצב:
-   sharp
-    if (button.IsPressed())
-        // הקיר עולה
-    else
-        // הקיר יורד
-    ---
+
+מחזיק מערך של כפתורים וכשכולם לחוצים יעלה את הקיר (עוזר לעשות שלב מרובה כפתורים)
+`private bool AreAllButtonsPressed()`
+
+---
 
 ### 4. מהלכי שלב
 
