@@ -151,10 +151,8 @@
 #### `RecorderManager.cs` – הקלטת תנועות השחקן  
 - מתעד בכל פריים: מיקום (`positions`), סיבוב (`rotations`), גודל (`scales`), והיפוך ספרייט (`flipXStates`).
 - מתעד מצבי אנימציה: `isRunning`, `isJumping`.
-- פונקציה עיקרית (`Update`), בה מתווספים כל הנתונים למשל
-  `sharp
-  positions.Add(player.transform.position);
-  `
+- פונקציה עיקרית (`Update`), בה מתווספים כל הנתונים למשל    
+  `positions.Add(player.transform.position);`
 
     - פונקציות עזר:  
     - `StopRecording()` ‒ עוצר הקלטה  
@@ -163,52 +161,44 @@
 
 #### `ClonePlayback.cs` – שחזור מאקרו תנועות  
 - מקבל את כל הרשימות מה־RecorderManager.
-- משחזר מיקום/סיבוב/סקייל/אנימציה פריים-אחר-פריים:
-  
-  `
-  sharp
-    void Update()
-    {
-        if (isPlaying)
-        {
-            transform.position = positions[currentFrame];
-            animator.SetBool("isRunning", isRunningStates[currentFrame]);
-            // ... שאר המשתנים ...
-        }
-    }
-  `
+- משחזר מיקום/סיבוב/סקייל/אנימציה פריים-אחר-פריים למשל:
+ - למיקום:  
+  `transform.position = positions[currentFrame];`
+- לאנימצית ריצה:  
+  `animator.SetBool("isRunning", isRunningStates[currentFrame]);`
 
   ---
 
 ### 2. מערכת ניהול השכפולים (Clone Management)
 
 #### `CloneSpawner.cs` – יצירת שכפול  
-- עוצר הקלטה
+- עוצר הקלטה  
 `recorderManager.StopRecording();`
-    - יוצר שכפול חדש ומתחיל השמעה מהנתונים:  
+    - יוצר שכפול חדש ומתחיל השמעה מהנתונים:    
 `playback.StartPlayback(positions, rotations, ...);`
-    - מסמן את השכפול ב־`tag = "Clone"`
+    - מסמן את השכפול ב־ `tag = "Clone"`
 
 #### `CloneTimer.cs` – טיימר ותצוגה  
-- סופר לאחור, ומפעיל יצירת שכפול כשתם הזמן:
-`
-  sharp
-    if (timer <= 0)
-        cloneSpawner.SpawnClone();
-`
+- סופר לאחור, ומפעיל יצירת שכפול כשתם הזמן:  
+```csharp
+if (timer <= 0)
+{
+    cloneSpawner.SpawnClone();
+}
+```
 
 ---
 
 ### 3. מכניקות פאזל
 
 #### `PressureButton.cs` – כפתור לחיץ  
-- משתמש ב־Trigger לזיהוי דריכה ולהפעיל את האנימציה:
+- משתמש ב־Trigger לזיהוי דריכה ולהפעיל את האנימציה:  
 
     - פונקציית עזר: `IsPressed()`
 
 #### `MovingWall.cs` – קיר נע  
 
-מחזיק מערך של כפתורים וכשכולם לחוצים יעלה את הקיר (עוזר לעשות שלב מרובה כפתורים)
+מחזיק מערך של כפתורים וכשכולם לחוצים יעלה את הקיר (עוזר לעשות שלב מרובה כפתורים)  
 `private bool AreAllButtonsPressed()`
 
 ---
