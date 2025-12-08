@@ -106,10 +106,12 @@
  נוכל ללחוץ על החיצים כדי לראות את הטסטים
  4. ואז נלחץ למטה על `Run All`
 
-טסטים שעברו
-<img src="RecordingTest.png" alt="Recording Test" width="300"/>
+תוצאות הטסטים:  
+
+<img src="RecordingTest.png" alt="Recording Test" width="400"/>
 
 קובץ הטסטים נמצא ב Assets\Test
+
 ---
 
 # 🎮 בדיקות משחק – Playtest
