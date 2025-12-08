@@ -145,10 +145,7 @@
 
 ---
 
-
-
----
-## תהליכי ליבה
+## תיעוד של חלקי הקוד
 
 
 ## 1. מכניקת הקלטה ושחזור (Recording & Playback)
@@ -205,16 +202,6 @@
 - ClonePlayback – אחראי רק על השחזור
 - Timer – אחראי רק על ספירה לאחור
 - Puzzle Components – הכפתורים, קירות וכל מנגנוני השליטה
-
-
-
----
-
-## תרשים UML
-
-
-[Though Loop UML](Thought_Loop_UML.png)
-
 
 ---
 ## 🎨 נכסים (Assets)
