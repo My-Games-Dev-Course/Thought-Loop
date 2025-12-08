@@ -148,35 +148,35 @@
 
 ## 1. מכניקת הקלטה ושחזור (Recording & Playback)
 
-### RecorderManager – הקלטת תנועות השחקן (`Assets/Scripts/SpwanManager/RecordManager.cs`)
+### RecorderManager – הקלטת תנועות השחקן (`RecordManager.cs`)
 - מקליט בכל פריים: מיקום, סיבוב, גודל.
 - מקליט מצבי אנימציה: `isRunning`, `isJumping`.
 - מקליט היפוך ספרייט (`flipX`).
 - שומר הכל ברשימות לשחזור מאוחר.
 
-### ClonePlayback – שחזור התנועות (`Assets/Scripts/SpwanManager/ClonePlayback.cs`)
+### ClonePlayback – שחזור התנועות (`ClonePlayback.cs`)
 - מקבל את כל המידע מה־RecorderManager ומשחזר פריים־אחר־פריים.
 - מעדכן מיקום/סיבוב/סקייל, מצב ספרייט ופרמטרי אנימציה בזמן אמת.
 - נעצר אוטומטית כשהמשחק בפאוז (למשל בזמן VictoryPopup).
 
 ## 2. מערכת ניהול השכפולים (Clone Management)
 
-### CloneSpawner – יצירת שכפולים (`Assets/Scripts/SpwanManager/CloneSpawner.cs`)
+### CloneSpawner – יצירת שכפולים (`CloneSpawner.cs`)
 - מפסיק הקלטה, יוצר שכפול חדש ומתחיל שחזור עם הנתונים שהוקלטו.
 - מציב את השכפול בפריים הראשון של ההקלטה ומסמן אותו כ־`Clone` לזיהוי התנגשויות.
 
-### CloneTimer – טיימר ותצוגת ספירה (`Assets/Scripts/GameManager/CloneTimer.cs`)
+### CloneTimer – טיימר ותצוגת ספירה (`CloneTimer.cs`)
 - מציג טקסט “Clone in: X”.
 - מפעיל את CloneSpawner כשהספירה מגיעה לאפס.
 - ניתן לכוון אורך טיימר שונה לכל שלב.
 
 ## 3. מכניקות פאזל
 
-### PressureButton – כפתור לחיץ (`Assets/Scripts/UIManager/Buttons/PressureButton.cs`)
+### PressureButton – כפתור לחיץ (`PressureButton.cs`)
 - מבוסס Trigger Collider עם אנימציות Pressed/Idle.
 - פונקציה `IsPressed()` לבדיקת מצב.
 
-### MovingWall – קיר נע (`Assets/Scripts/UIManager/LevelComponents/MovingWall.cs`)
+### MovingWall – קיר נע (`MovingWall.cs`)
 - עולה כשהכפתור(ים) לחוצים, יורד כשהם משוחררים.
 
 ## 4. התנהלות שלב
