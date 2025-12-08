@@ -110,7 +110,8 @@
 
 <img src="RecordingTest.png" alt="Recording Test" width="400"/>
 
-קובץ הטסטים נמצא ב (Assets\Test)[Assets\Test]
+
+[תיקיית הטסטים](./Assets/Test)
 
 ---
 
