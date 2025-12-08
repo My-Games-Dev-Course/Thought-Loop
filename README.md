@@ -144,64 +144,54 @@
 שחקנים שמציעים שלבים מרגישים שהם חלק פעיל מהעיצוב, ולעיתים מציעים רעיונות מצוינים להרחבת המשחק.
 
 ---
-
 ## תיעוד של חלקי הקוד
-
 
 ## 1. מכניקת הקלטה ושחזור (Recording & Playback)
 
-### RecorderManager – הקלטת תנועות השחקן
-- מקליט מיקום, סיבוב וגודל בכל פריים  
-- מקליט מצבי אנימציה (ריצה/עמידה)  
-- מקליט היפוך ספרייט  
-- שומר את כל הנתונים ברשימות לשימוש מאוחר יותר
+### RecorderManager – הקלטת תנועות השחקן (`Assets/Scripts/SpwanManager/RecordManager.cs`)
+- מקליט בכל פריים: מיקום, סיבוב, גודל.
+- מקליט מצבי אנימציה: `isRunning`, `isJumping`.
+- מקליט היפוך ספרייט (`flipX`).
+- שומר הכל ברשימות לשחזור מאוחר.
 
-### ClonePlayback – שחזור התנועות
-- מקבל את כל הנתונים מ־RecorderManager  
-- משחזר תנועות פריים־אחר־פריים בדיוק מלא  
-- מעדכן אנימציות והיפוך ספרייט בזמן אמת  
-
+### ClonePlayback – שחזור התנועות (`Assets/Scripts/SpwanManager/ClonePlayback.cs`)
+- מקבל את כל המידע מה־RecorderManager ומשחזר פריים־אחר־פריים.
+- מעדכן מיקום/סיבוב/סקייל, מצב ספרייט ופרמטרי אנימציה בזמן אמת.
+- נעצר אוטומטית כשהמשחק בפאוז (למשל בזמן VictoryPopup).
 
 ## 2. מערכת ניהול השכפולים (Clone Management)
 
-### CloneSpawner – יצירת שכפולים
-- מופעל לאחר סיום טיימר ה־10 שניות  
-- מפסיק הקלטה ויוצר מופע חדש של השכפול  
-- מעביר את כל הנתונים לשחזור באמצעות ClonePlayback  
-- מסמן את השכפול כ־"Clone" לצורך זיהוי התנגשויות
+### CloneSpawner – יצירת שכפולים (`Assets/Scripts/SpwanManager/CloneSpawner.cs`)
+- מפסיק הקלטה, יוצר שכפול חדש ומתחיל שחזור עם הנתונים שהוקלטו.
+- מציב את השכפול בפריים הראשון של ההקלטה ומסמן אותו כ־`Clone` לזיהוי התנגשויות.
 
-### CloneTimer – טיימר ותצוגת ספירה
-- מציג טקסט: "Clone in: X"  
-- מפעיל את CloneSpawner כשהספירה מגיעה לאפס  
-- ניתן להתאמה לאורך שונה בכל שלב (10/15/20 שניות וכו')
-
+### CloneTimer – טיימר ותצוגת ספירה (`Assets/Scripts/GameManager/CloneTimer.cs`)
+- מציג טקסט “Clone in: X”.
+- מפעיל את CloneSpawner כשהספירה מגיעה לאפס.
+- ניתן לכוון אורך טיימר שונה לכל שלב.
 
 ## 3. מכניקות פאזל
 
-### PressureButton – כפתור לחיץ
-- מבוסס Trigger Collider  
-- כולל אנימציות Pressed ו־Idle  
-- מספק פונקציה `IsPressed()` לבדיקת המצב
+### PressureButton – כפתור לחיץ (`Assets/Scripts/UIManager/Buttons/PressureButton.cs`)
+- מבוסס Trigger Collider עם אנימציות Pressed/Idle.
+- פונקציה `IsPressed()` לבדיקת מצב.
 
-### MovingWall – קיר נע
-- עולה כשהכפתור לחוץ  
-- יורד כשהכפתור משוחרר  
-
+### MovingWall – קיר נע (`Assets/Scripts/UIManager/LevelComponents/MovingWall.cs`)
+- עולה כשהכפתור(ים) לחוצים, יורד כשהם משוחררים.
 
 ## 4. התנהלות שלב
 
-- התנגשות עם שכפול – אתחול סצנה
-- מעבר בין שלבים בהגעה אל הדגל 
-
+- התנגשות עם שכפול → אתחול סצנה (`playerMovment.cs`, `CrushDetector.cs`, `ResetButton.cs`).
+- הגעה לדגל → VictoryPopup וטעינת השלב הבא עם Fade (ראה `Flag.cs`, `VictoryPopup.cs`, `SceneFader.cs`).
 
 ## 5. ארכיטקטורה מודולרית
 
-- Player – אחראי רק על תנועה ולוגיקת שליטה
-- RecorderManager – אחראי רק על הקלטת פריימים
-- CloneSpawner – אחראי רק על יצירת שכפולים
-- ClonePlayback – אחראי רק על השחזור
-- Timer – אחראי רק על ספירה לאחור
-- Puzzle Components – הכפתורים, קירות וכל מנגנוני השליטה
+- Player – תנועה וקלט בלבד.
+- RecorderManager – הקלטת פריימים בלבד.
+- CloneSpawner – יצירת שכפולים בלבד.
+- ClonePlayback – שחזור בלבד.
+- Timer – ספירה לאחור בלבד.
+- Puzzle Components – כפתורים, קירות ומנגנוני שליטה.
 
 ---
 ## 🎨 נכסים (Assets)
