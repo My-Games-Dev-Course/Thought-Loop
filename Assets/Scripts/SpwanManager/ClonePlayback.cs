@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
@@ -20,6 +19,16 @@ public class ClonePlayback : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private float frameNumber = 50f; // If we want to control how often we log playback info
 
+    [SerializeField] private Rigidbody2D rb;  // NEW: Reference to Rigidbody2D
+
+
+    [Header("Fall Behavior (Optional)")]
+    [Tooltip("If true, clone will fall to ground after playback ends. If false, stays in air.")]
+    [SerializeField] private bool fallAfterPlayback = true;
+
+    [Tooltip("Gravity scale when falling (default: 2 to match player)")]
+    [SerializeField] private float fallGravityScale = 2f;
+
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -33,13 +42,25 @@ public class ClonePlayback : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
         }
 
-        //if(recorderManager == null)
-        //{
-        //    Debug.LogError("[CloneSpawner] RecorderManager not assigned!");
-        //}
+
+        // Get Rigidbody2D
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>();
+
+        // Validation
+        if (rb == null)
+        {
+            Debug.LogWarning("[ClonePlayback] No Rigidbody2D found! Clone won't fall after playback.");
+            fallAfterPlayback = false;
+        }
     }
 
-    public void StartPlayback(List<Vector2> pos, List<Quaternion> rot, List<Vector2> scl, List<bool> flipX, List<bool> running, List<bool> jumping)
+    public Rigidbody2D GetRb()
+    {
+        return rb;
+    }
+
+    public void StartPlayback(List<Vector2> pos, List<Quaternion> rot, List<Vector2> scl, List<bool> flipX, List<bool> running, List<bool> jumping, Rigidbody2D rb)
     {
         positions = pos;
         rotations = rot;
@@ -49,6 +70,13 @@ public class ClonePlayback : MonoBehaviour
         isJumpingStates = jumping;
         currentFrame = 0; // initialize current frame to zero because starting form begigning of the frame
         isPlaying = true;
+
+        if (rb != null)
+        {
+            rb.bodyType = RigidbodyType2D.Kinematic;  // Modern Unity API
+            rb.linearVelocity = Vector2.zero;  // Clear any velocity
+            Debug.Log("[ClonePlayback] Set to KINEMATIC for playback (position controlled by recording)");
+        }
         Debug.Log($"[ClonePlayback] Started playback with {positions.Count} frames");
     }
 
@@ -84,6 +112,52 @@ public class ClonePlayback : MonoBehaviour
         {
             isPlaying = false;
             Debug.Log($"[ClonePlayback] Playback finished at frame {currentFrame}");
+            OnPlaybackComplete();
         }
+    }
+
+
+    // Called when playback ends. Enables physics so clone falls naturally.
+    void OnPlaybackComplete()
+    {
+        if (!fallAfterPlayback || rb == null)
+        {
+            Debug.Log("[ClonePlayback] Fall disabled or no Rigidbody - clone stays in position");
+            return;
+        }
+
+        // Enable physics using modern Unity API
+        rb.bodyType = RigidbodyType2D.Dynamic;  // Modern Unity API
+        rb.gravityScale = fallGravityScale;
+
+        // Stop running animation (clone should be idle while falling)
+        if (animator != null)
+            animator.SetBool("isRunning", false);
+
+        Debug.Log($"[ClonePlayback] Enabled PHYSICS - clone will now fall to ground (gravity: {fallGravityScale})");
+    }
+
+    // Check if playback is still active
+    public bool IsPlaying()
+    {
+        return isPlaying;
+    }
+
+    // Get current playback frame
+    public int GetCurrentFrame()
+    {
+        return currentFrame;
+    }
+
+    // Get total number of recorded frames
+    public int GetTotalFrames()
+    {
+        return positions?.Count ?? 0;
+    }
+
+    // Check if clone is currently falling (physics enabled)
+    public bool IsFalling()
+    {
+        return rb != null && rb.bodyType == RigidbodyType2D.Dynamic && !isPlaying;
     }
 }

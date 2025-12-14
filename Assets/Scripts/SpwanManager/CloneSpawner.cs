@@ -36,7 +36,7 @@ public class CloneSpawner : MonoBehaviour
             ClonePlayback playback = clone.GetComponent<ClonePlayback>();
             if (playback != null)
             {
-                playback.StartPlayback(positions, rotations, scales, flipXStates, isRunningStates, isJumpingStates);
+                playback.StartPlayback(positions, rotations, scales, flipXStates, isRunningStates, isJumpingStates, playback.GetRb());
                 Debug.Log("[CloneSpawner] Clone spawned and playback started!");
             }
             else
