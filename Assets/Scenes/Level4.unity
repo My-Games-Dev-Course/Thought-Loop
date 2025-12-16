@@ -721,11 +721,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 726469963089228620, guid: b7f542eb3d22ad2499b6bef8fb01a2d6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.3298
+      value: -6.6492
       objectReference: {fileID: 0}
     - target: {fileID: 726469963089228620, guid: b7f542eb3d22ad2499b6bef8fb01a2d6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.0433
+      value: 2.0691
       objectReference: {fileID: 0}
     - target: {fileID: 726469963089228620, guid: b7f542eb3d22ad2499b6bef8fb01a2d6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -765,11 +765,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6003637279259141323, guid: b7f542eb3d22ad2499b6bef8fb01a2d6, type: 3}
       propertyPath: m_Size.x
-      value: 3.841029
+      value: 4.4797473
       objectReference: {fileID: 0}
     - target: {fileID: 6003637279259141323, guid: b7f542eb3d22ad2499b6bef8fb01a2d6, type: 3}
       propertyPath: m_Size.y
-      value: 0.9431775
+      value: 0.89161164
       objectReference: {fileID: 0}
     - target: {fileID: 6031854643988913214, guid: b7f542eb3d22ad2499b6bef8fb01a2d6, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
@@ -1777,7 +1777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1160306370821401529, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 8
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 1160306370821401529, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2382,7 +2382,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: what about managing 2 clones
+  m_text: What about managing 2 clones?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

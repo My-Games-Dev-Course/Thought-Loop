@@ -594,7 +594,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: You woke up in a forest. Last thing you remember is falling from your spaceship.
-    Something fill wird, clones of your self starting to apear mimicing you. How
+    Something feels weird, clones of your self starting to apear mimicing you. How
     to get back? need to find a spaceship to return
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
