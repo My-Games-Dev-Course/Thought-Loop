@@ -59,7 +59,8 @@
 
 - **Pixel Adventure 1** - ספרייטים לדמויות וסביבה
 - **Pixel Art UI Essentials** - כפתורי מרכזיים (למשל מעבר שלב)
-- **Simple Button Set 02** - כפתורים נוספיפ (אתחול שלב)
+- **Simple Button Set 02** - כפתורים נוספים (אתחול שלב)
+
 [רכיבים רשמיים](Formal_Elements/formal-elements.md)  
 
 
