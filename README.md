@@ -34,7 +34,7 @@
 ---
 
 
-# הסבר פתיחת המשחק
+# הסבר שלבי המשחק
 
 ## 🎬 סצנות 
 
@@ -53,10 +53,13 @@
 
 
 ---
-## 🎨 נכסים (Assets)
+## 🎨 בניית עולם נכסים (Assets)
+
+עבור בניית העולם השתמשנו בנכסים מתוך unity store, מהם יצרנו אדמה קומות אריחים כפתורים על מנת לפתוח את השערים (שאותו עשינו כקיר זז), הגעה אל הדגל לסיום שלב, ובדמויות על מנת ליצור את הדמות המרכזית השכפול והאוייבים
 
 - **Pixel Adventure 1** - ספרייטים לדמויות וסביבה
-
+- **Pixel Art UI Essentials** - כפתורי מרכזיים (למשל מעבר שלב)
+- **Simple Button Set 02** - כפתורים נוספיפ (אתחול שלב)
 [רכיבים רשמיים](Formal_Elements/formal-elements.md)  
 
 
