@@ -56,7 +56,7 @@
 
 כבור דוגמה למפה נביא קטע מתוך שלב שמייצג את התמונה הכללית של מבנה השלבים 
 
-<img src="GameMap.jpg" alt="GameMap" height="300"/>
+<img src="GameMap.JPG" width="400">
 
 ---
 
