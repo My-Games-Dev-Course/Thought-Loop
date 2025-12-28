@@ -431,6 +431,11 @@ public class playerMovment : MonoBehaviour
         // If touching the clone the level start again
         if (collision.gameObject.CompareTag("Clone"))
         {
+            if (DeathTracker.Instance != null)
+            {
+                DeathTracker.Instance.RecordDeath();
+            }
+
             Debug.Log("Touched clone! Restarting level...");
             UnityEngine.SceneManagement.SceneManager.LoadScene(
                 UnityEngine.SceneManagement.SceneManager.GetActiveScene().name

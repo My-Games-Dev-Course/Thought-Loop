@@ -8,7 +8,7 @@ public class StartGameButton : MonoBehaviour
 
     [Header("Alternative: Use Build Index")]
     [Tooltip("If you prefer to use build index instead of name")]
-    [SerializeField] private bool useBuildIndex = false;
+    [SerializeField] private bool useBuildIndex = true;
     [SerializeField] private int sceneIndex = 1;
 
     // Call this method from the Button's OnClick event

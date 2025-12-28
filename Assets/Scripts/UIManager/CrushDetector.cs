@@ -15,6 +15,10 @@ public class CrushDetector : MonoBehaviour
         // Check if Player touched the crush detector
         if (other.CompareTag(targetTag))
         {
+            if (DeathTracker.Instance != null)
+            {
+                DeathTracker.Instance.RecordDeath();
+            }
             Debug.Log("[CrushDetector] Player crushed! Restarting scene...");
             RestartScene();
         }

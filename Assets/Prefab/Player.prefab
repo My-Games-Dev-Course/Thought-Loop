@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1132436778373010505}
   - component: {fileID: 6531709476676961939}
   - component: {fileID: 3110106381921745142}
+  - component: {fileID: 1893900274119835365}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -310,3 +311,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1893900274119835365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4468076120934171336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed92ba0daf713447aaeffe4b9c2bf94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeathTracker

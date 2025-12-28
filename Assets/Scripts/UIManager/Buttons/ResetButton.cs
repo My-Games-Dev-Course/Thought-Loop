@@ -18,6 +18,10 @@ public class ResetButton : MonoBehaviour
 
         if (reloadCurrentScene)
         {
+            if (DeathTracker.Instance != null)
+            {
+                DeathTracker.Instance.RecordDeath();
+            }
             // Reload the current scene
             Scene currentScene = SceneManager.GetActiveScene();
             Debug.Log($"[ResetButton] Reloading scene: {currentScene.name}");

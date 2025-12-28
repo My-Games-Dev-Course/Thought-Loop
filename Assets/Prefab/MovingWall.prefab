@@ -150,6 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474c0f4aa9344e948bcf1fd8cac82e1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  button: {fileID: 0}
+  buttons: []
   moveDistance: 3
   moveSpeed: 5

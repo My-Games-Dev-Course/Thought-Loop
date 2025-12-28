@@ -141,6 +141,11 @@ public class EnemyMovement : MonoBehaviour
         if (collision.gameObject.CompareTag(playerTag) ||
             collision.gameObject.CompareTag(cloneTag))
         {
+            if (DeathTracker.Instance != null)
+            {
+                DeathTracker.Instance.RecordDeath();
+            }
+
             Debug.Log($"[EnemyMovement] Collided with {collision.gameObject.tag}! Restarting level...");
             RestartScene();
             return;
