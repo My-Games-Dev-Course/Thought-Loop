@@ -4,8 +4,8 @@
 //using UnityEngine.SceneManagement;
 
 ///**
-// * Login UI - Calls separate Register and Login methods
-// * Based on lesson code pattern
+// * Login UI - Works with PlayerData system
+// * Saves player name and loads their saved progress
 // */
 //public class LoginUI : MonoBehaviour
 //{
@@ -17,7 +17,7 @@
 //    [SerializeField] private TextMeshProUGUI statusText;
 
 //    [Header("Settings")]
-//    [SerializeField] private int firstLevelBuildIndex = 1;
+//    [SerializeField] private int mainMenuIndex = 1; // MainMenu build index
 
 //    private void Start()
 //    {
@@ -27,39 +27,26 @@
 //        if (registerButton != null)
 //        {
 //            registerButton.onClick.AddListener(OnRegisterButtonClicked);
-//            Debug.Log("[LoginUI] Register button connected");
 //        }
 
 //        // Setup Login button
 //        if (loginButton != null)
 //        {
 //            loginButton.onClick.AddListener(OnLoginButtonClicked);
-//            Debug.Log("[LoginUI] Login button connected");
 //        }
 
-//        // Setup password field (auto-filled and disabled)
+//        // Setup password field
 //        if (passwordInput != null)
 //        {
 //            passwordInput.text = "********";
 //            passwordInput.interactable = false;
 //            passwordInput.contentType = TMP_InputField.ContentType.Password;
-//            Debug.Log("[LoginUI] Password field setup");
 //        }
 
 //        // Initial status
 //        if (statusText != null)
 //        {
 //            ShowStatus("Enter username - Register for new, Login for existing", false);
-//        }
-
-//        // Check CloudSaveManager
-//        if (CloudSaveManager.Instance != null)
-//        {
-//            Debug.Log("[LoginUI] ✓ CloudSaveManager found");
-//        }
-//        else
-//        {
-//            Debug.LogError("[LoginUI] ✗ CloudSaveManager NOT FOUND!");
 //        }
 
 //        // Allow Enter key
@@ -72,22 +59,13 @@
 //    }
 
 //    /**
-//     * REGISTER button - Create NEW account
+//     * REGISTER button
 //     */
 //    private async void OnRegisterButtonClicked()
 //    {
-//        Debug.Log("========================================");
-//        Debug.Log("[LoginUI] REGISTER BUTTON CLICKED");
-//        Debug.Log("========================================");
-
-//        if (CloudSaveManager.Instance == null)
-//        {
-//            ShowStatus("ERROR: CloudSaveManager not found", true);
-//            return;
-//        }
+//        Debug.Log("[LoginUI] REGISTER clicked");
 
 //        string username = usernameInput != null ? usernameInput.text.Trim() : "";
-//        Debug.Log($"[LoginUI] Username: '{username}'");
 
 //        if (!ValidateUsername(username))
 //        {
@@ -97,42 +75,42 @@
 //        SetButtonsEnabled(false);
 //        ShowStatus("Creating account...", false);
 
-//        // Call REGISTER method (creates new account)
 //        string result = await CloudSaveManager.Instance.RegisterWithUsername(username);
-
-//        Debug.Log($"[LoginUI] Register result: {result}");
 
 //        if (result.Contains("successful"))
 //        {
-//            Debug.Log("[LoginUI] ✓✓✓ REGISTER SUCCESS ✓✓✓");
+//            Debug.Log("[LoginUI] ✓ Register success");
 //            ShowStatus("Account created! Loading game...", false);
-//            await LoadGameAfterLogin();
+
+//            // New player always starts at level 2 (Tutorial1)
+//            int savedLevel = CloudSaveManager.Instance.GetCurrentLevel();
+//            Debug.Log($"[LoginUI] New player's starting level: {savedLevel}");
+
+//            // Save to PlayerPrefs
+//            PlayerPrefs.SetInt("CurrentLevelIndex", savedLevel);
+//            PlayerPrefs.Save();
+
+//            await System.Threading.Tasks.Task.Delay(500);
+
+//            // New players always go to MainMenu (level 2 = Tutorial1)
+//            LoadMainMenu();
 //        }
 //        else
 //        {
-//            Debug.LogError("[LoginUI] ✗✗✗ REGISTER FAILED ✗✗✗");
+//            Debug.LogError($"[LoginUI] ✗ Register failed: {result}");
 //            ShowStatus($"Registration failed: {result}", true);
 //            SetButtonsEnabled(true);
 //        }
 //    }
 
 //    /**
-//     * LOGIN button - Sign into EXISTING account
+//     * LOGIN button
 //     */
 //    private async void OnLoginButtonClicked()
 //    {
-//        Debug.Log("========================================");
-//        Debug.Log("[LoginUI] LOGIN BUTTON CLICKED");
-//        Debug.Log("========================================");
-
-//        if (CloudSaveManager.Instance == null)
-//        {
-//            ShowStatus("ERROR: CloudSaveManager not found", true);
-//            return;
-//        }
+//        Debug.Log("[LoginUI] LOGIN clicked");
 
 //        string username = usernameInput != null ? usernameInput.text.Trim() : "";
-//        Debug.Log($"[LoginUI] Username: '{username}'");
 
 //        if (!ValidateUsername(username))
 //        {
@@ -142,22 +120,96 @@
 //        SetButtonsEnabled(false);
 //        ShowStatus("Signing in...", false);
 
-//        // Call LOGIN method (signs into existing account)
 //        string result = await CloudSaveManager.Instance.LoginWithUsername(username);
-
-//        Debug.Log($"[LoginUI] Login result: {result}");
 
 //        if (result.Contains("successful"))
 //        {
-//            Debug.Log("[LoginUI] ✓✓✓ LOGIN SUCCESS ✓✓✓");
+//            Debug.Log("[LoginUI] ✓ Login success");
 //            ShowStatus("Login successful! Loading game...", false);
-//            await LoadGameAfterLogin();
+
+//            // Get saved level from PlayerData
+//            int savedLevel = CloudSaveManager.Instance.GetCurrentLevel();
+//            Debug.Log($"[LoginUI] Player's saved level: {savedLevel}");
+
+//            // Save to PlayerPrefs for StartGameButton
+//            PlayerPrefs.SetInt("CurrentLevelIndex", savedLevel);
+//            PlayerPrefs.Save();
+
+//            await System.Threading.Tasks.Task.Delay(500);
+
+//            // Load the appropriate scene based on saved progress
+//            LoadGameBasedOnProgress(savedLevel);
 //        }
 //        else
 //        {
-//            Debug.LogError("[LoginUI] ✗✗✗ LOGIN FAILED ✗✗✗");
+//            Debug.LogError($"[LoginUI] ✗ Login failed: {result}");
 //            ShowStatus($"Login failed: {result}", true);
 //            SetButtonsEnabled(true);
+//        }
+//    }
+
+//    /**
+//     * Load MainMenu
+//     */
+//    private void LoadMainMenu()
+//    {
+//        Debug.Log($"[LoginUI] Loading MainMenu (index {mainMenuIndex})");
+//        SceneManager.LoadScene(mainMenuIndex);
+//    }
+
+//    /**
+//     * Load game based on player's progress
+//     * New players (level 2) → MainMenu
+//     * Returning players (level > 2) → Load saved level directly
+//     */
+//    //private void LoadGameBasedOnProgress(int savedLevel)
+//    //{
+//    //    // Check if this is a new player or returning player
+//    //    if (savedLevel <= 2)
+//    //    {
+//    //        // New player → Go to MainMenu
+//    //        Debug.Log($"[LoginUI] New player detected (level {savedLevel}) → Loading MainMenu");
+//    //        LoadMainMenu();
+//    //    }
+//    //    else
+//    //    {
+//    //        // Returning player → Skip MainMenu, load saved level directly
+//    //        Debug.Log($"[LoginUI] Returning player detected (level {savedLevel}) → Loading saved level directly!");
+
+//    //        string sceneName = "Level";
+//    //        if (savedLevel < SceneManager.sceneCountInBuildSettings)
+//    //        {
+//    //            sceneName = System.IO.Path.GetFileNameWithoutExtension(
+//    //                SceneUtility.GetScenePathByBuildIndex(savedLevel)
+//    //            );
+//    //        }
+
+//    //        Debug.Log($"[LoginUI] Loading scene: {sceneName} (index {savedLevel})");
+//    //        SceneManager.LoadScene(savedLevel);
+//    //    }
+//    //}
+
+//    private void LoadGameBasedOnProgress(int savedLevel)
+//    {
+//        // Check if valid level
+//        if (savedLevel < 0 || savedLevel >= SceneManager.sceneCountInBuildSettings)
+//        {
+//            Debug.LogWarning($"[LoginUI] Invalid level {savedLevel}, loading MainMenu");
+//            LoadMainMenu();
+//            return;
+//        }
+
+//        // New player (level 2 = Tutorial1) → MainMenu
+//        if (savedLevel <= 2)
+//        {
+//            Debug.Log($"[LoginUI] New player (level {savedLevel}) → MainMenu");
+//            LoadMainMenu();
+//        }
+//        else
+//        {
+//            // Returning player → Skip MainMenu, load saved level directly!
+//            Debug.Log($"[LoginUI] Returning player (level {savedLevel}) → Loading directly!");
+//            SceneManager.LoadScene(savedLevel);
 //        }
 //    }
 
@@ -194,53 +246,6 @@
 //    }
 
 //    /**
-//     * Load game after successful login
-//     * Always loads MainMenu - the Play button there will check for saved progress
-//     */
-//    private async System.Threading.Tasks.Task LoadGameAfterLogin()
-//    {
-//        Debug.Log("[LoginUI] Loading game...");
-
-//        // Load saved level from cloud and store in PlayerPrefs
-//        int savedLevelIndex = await CloudSaveManager.Instance.LoadCurrentLevel();
-//        Debug.Log($"[LoginUI] Saved level index from cloud: {savedLevelIndex}");
-
-//        // Save to PlayerPrefs so StartGameButton can read it
-//        PlayerPrefs.SetInt("CurrentLevelIndex", savedLevelIndex);
-//        PlayerPrefs.Save();
-//        Debug.Log($"[LoginUI] Saved to PlayerPrefs: CurrentLevelIndex = {savedLevelIndex}");
-
-//        // ALWAYS load MainMenu (index 1)
-//        // The Play button there will check PlayerPrefs and load saved level if exists
-//        int mainMenuIndex = firstLevelBuildIndex; // Should be 1 (MainMenu)
-
-//        // Get scene name
-//        string sceneName = "MainMenu";
-//        if (mainMenuIndex < SceneManager.sceneCountInBuildSettings)
-//        {
-//            sceneName = System.IO.Path.GetFileNameWithoutExtension(
-//                SceneUtility.GetScenePathByBuildIndex(mainMenuIndex)
-//            );
-//        }
-
-//        Debug.Log($"[LoginUI] Loading MainMenu (index {mainMenuIndex})");
-//        ShowStatus($"Loading {sceneName}...", false);
-
-//        await System.Threading.Tasks.Task.Delay(500);
-
-//        if (mainMenuIndex >= 0 && mainMenuIndex < SceneManager.sceneCountInBuildSettings)
-//        {
-//            SceneManager.LoadScene(mainMenuIndex);
-//        }
-//        else
-//        {
-//            Debug.LogError($"[LoginUI] Invalid scene index: {mainMenuIndex}");
-//            ShowStatus("ERROR: Invalid level index", true);
-//            SetButtonsEnabled(true);
-//        }
-//    }
-
-//    /**
 //     * Show status message
 //     */
 //    private void ShowStatus(string message, bool isError)
@@ -250,7 +255,6 @@
 //            statusText.text = message;
 //            statusText.color = isError ? Color.red : Color.white;
 //        }
-//        Debug.Log($"[LoginUI] Status: {message}");
 //    }
 
 //    /**
@@ -269,15 +273,13 @@
 //    }
 //}
 
+
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
-/**
- * Login UI - Works with PlayerData system
- * Saves player name and loads their saved progress
- */
 public class LoginUI : MonoBehaviour
 {
     [Header("UI References")]
@@ -290,23 +292,18 @@ public class LoginUI : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private int mainMenuIndex = 1; // MainMenu build index
 
+    private bool isBusy = false;
+
     private void Start()
     {
         Debug.Log("[LoginUI] Starting setup...");
 
-        // Setup Register button
         if (registerButton != null)
-        {
-            registerButton.onClick.AddListener(OnRegisterButtonClicked);
-        }
+            registerButton.onClick.AddListener(OnRegisterClicked);
 
-        // Setup Login button
         if (loginButton != null)
-        {
-            loginButton.onClick.AddListener(OnLoginButtonClicked);
-        }
+            loginButton.onClick.AddListener(OnLoginClicked);
 
-        // Setup password field
         if (passwordInput != null)
         {
             passwordInput.text = "********";
@@ -314,155 +311,164 @@ public class LoginUI : MonoBehaviour
             passwordInput.contentType = TMP_InputField.ContentType.Password;
         }
 
-        // Initial status
-        if (statusText != null)
-        {
-            ShowStatus("Enter username - Register for new, Login for existing", false);
-        }
-
-        // Allow Enter key
         if (usernameInput != null)
-        {
-            usernameInput.onSubmit.AddListener(delegate { OnLoginButtonClicked(); });
-        }
+            usernameInput.onSubmit.AddListener(_ => OnLoginClicked());
 
+        ShowStatus("Enter username - Register for new, Login for existing", false);
         Debug.Log("[LoginUI] Setup complete");
     }
 
-    /**
-     * REGISTER button
-     */
-    private async void OnRegisterButtonClicked()
+    // =========================
+    // BUTTON HANDLERS
+    // =========================
+
+    private void OnLoginClicked()
     {
-        Debug.Log("[LoginUI] REGISTER clicked");
-
-        string username = usernameInput != null ? usernameInput.text.Trim() : "";
-
-        if (!ValidateUsername(username))
-        {
-            return;
-        }
-
-        SetButtonsEnabled(false);
-        ShowStatus("Creating account...", false);
-
-        string result = await CloudSaveManager.Instance.RegisterWithUsername(username);
-
-        if (result.Contains("successful"))
-        {
-            Debug.Log("[LoginUI] ✓ Register success");
-            ShowStatus("Account created! Loading game...", false);
-
-            // New player always starts at level 2 (Tutorial1)
-            int savedLevel = CloudSaveManager.Instance.GetCurrentLevel();
-            Debug.Log($"[LoginUI] New player's starting level: {savedLevel}");
-
-            // Save to PlayerPrefs
-            PlayerPrefs.SetInt("CurrentLevelIndex", savedLevel);
-            PlayerPrefs.Save();
-
-            await System.Threading.Tasks.Task.Delay(500);
-
-            // New players always go to MainMenu (level 2 = Tutorial1)
-            LoadMainMenu();
-        }
-        else
-        {
-            Debug.LogError($"[LoginUI] ✗ Register failed: {result}");
-            ShowStatus($"Registration failed: {result}", true);
-            SetButtonsEnabled(true);
-        }
+        if (isBusy) return;
+        StartCoroutine(LoginFlow());
     }
 
-    /**
-     * LOGIN button
-     */
-    private async void OnLoginButtonClicked()
+    private void OnRegisterClicked()
     {
+        if (isBusy) return;
+        StartCoroutine(RegisterFlow());
+    }
+
+    // =========================
+    // LOGIN FLOW
+    // =========================
+
+    private IEnumerator LoginFlow()
+    {
+        isBusy = true;
+        SetButtonsEnabled(false);
+
+        string username = usernameInput.text.Trim();
+        if (!ValidateUsername(username))
+        {
+            ResetUI();
+            yield break;
+        }
+
+        ShowStatus("Signing in...", false);
         Debug.Log("[LoginUI] LOGIN clicked");
 
-        string username = usernameInput != null ? usernameInput.text.Trim() : "";
+        var loginTask = CloudSaveManager.Instance.LoginWithUsername(username);
+        yield return new WaitUntil(() => loginTask.IsCompleted);
 
+        string result = loginTask.Result;
+
+        if (!result.Contains("successful"))
+        {
+            Debug.LogError($"[LoginUI] Login failed: {result}");
+            ShowStatus($"Login failed: {result}", true);
+            ResetUI();
+            yield break;
+        }
+
+        Debug.Log("[LoginUI] ✓ Login success");
+
+        int savedLevel = CloudSaveManager.Instance.GetCurrentLevel();
+        Debug.Log($"[LoginUI] Player's saved level: {savedLevel}");
+
+        PlayerPrefs.SetInt("CurrentLevelIndex", savedLevel);
+        PlayerPrefs.Save();
+
+        ShowStatus("Loading game...", false);
+        yield return new WaitForSeconds(0.3f);
+
+        yield return LoadGameByProgress(savedLevel);
+    }
+
+    // =========================
+    // REGISTER FLOW
+    // =========================
+
+    private IEnumerator RegisterFlow()
+    {
+        isBusy = true;
+        SetButtonsEnabled(false);
+
+        string username = usernameInput.text.Trim();
         if (!ValidateUsername(username))
         {
-            return;
+            ResetUI();
+            yield break;
         }
 
-        SetButtonsEnabled(false);
-        ShowStatus("Signing in...", false);
+        ShowStatus("Creating account...", false);
+        Debug.Log("[LoginUI] REGISTER clicked");
 
-        string result = await CloudSaveManager.Instance.LoginWithUsername(username);
+        var registerTask = CloudSaveManager.Instance.RegisterWithUsername(username);
+        yield return new WaitUntil(() => registerTask.IsCompleted);
 
-        if (result.Contains("successful"))
+        string result = registerTask.Result;
+
+        if (!result.Contains("successful"))
         {
-            Debug.Log("[LoginUI] ✓ Login success");
-            ShowStatus("Login successful! Loading game...", false);
-
-            // Get saved level from PlayerData
-            int savedLevel = CloudSaveManager.Instance.GetCurrentLevel();
-            Debug.Log($"[LoginUI] Player's saved level: {savedLevel}");
-
-            // Save to PlayerPrefs for StartGameButton
-            PlayerPrefs.SetInt("CurrentLevelIndex", savedLevel);
-            PlayerPrefs.Save();
-
-            await System.Threading.Tasks.Task.Delay(500);
-
-            // Load the appropriate scene based on saved progress
-            LoadGameBasedOnProgress(savedLevel);
+            Debug.LogError($"[LoginUI] Register failed: {result}");
+            ShowStatus($"Registration failed: {result}", true);
+            ResetUI();
+            yield break;
         }
-        else
-        {
-            Debug.LogError($"[LoginUI] ✗ Login failed: {result}");
-            ShowStatus($"Login failed: {result}", true);
-            SetButtonsEnabled(true);
-        }
+
+        Debug.Log("[LoginUI] ✓ Register success");
+
+        int startLevel = CloudSaveManager.Instance.GetCurrentLevel();
+        PlayerPrefs.SetInt("CurrentLevelIndex", startLevel);
+        PlayerPrefs.Save();
+
+        ShowStatus("Account created! Loading game...", false);
+        yield return new WaitForSeconds(0.3f);
+
+        yield return LoadGameByProgress(startLevel);
     }
 
-    /**
-     * Load MainMenu
-     */
-    private void LoadMainMenu()
+    // =========================
+    // SCENE LOADING (WEBGL SAFE)
+    // =========================
+
+    private IEnumerator LoadGameByProgress(int savedLevel)
     {
-        Debug.Log($"[LoginUI] Loading MainMenu (index {mainMenuIndex})");
-        SceneManager.LoadScene(mainMenuIndex);
+        int sceneIndex = mainMenuIndex;
+
+        if (savedLevel > 2 &&
+            savedLevel >= 0 &&
+            savedLevel < SceneManager.sceneCountInBuildSettings)
+        {
+            sceneIndex = savedLevel;
+        }
+
+        Debug.Log($"[LoginUI] Loading scene index {sceneIndex}");
+
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneIndex);
+        while (!op.isDone)
+            yield return null;
     }
 
-    /**
-     * Load game based on player's progress
-     * New players (level 2) → MainMenu
-     * Returning players (level > 2) → Load saved level directly
-     */
-    private void LoadGameBasedOnProgress(int savedLevel)
+    // =========================
+    // HELPERS
+    // =========================
+
+    private void ResetUI()
     {
-        // Check if this is a new player or returning player
-        if (savedLevel <= 2)
-        {
-            // New player → Go to MainMenu
-            Debug.Log($"[LoginUI] New player detected (level {savedLevel}) → Loading MainMenu");
-            LoadMainMenu();
-        }
-        else
-        {
-            // Returning player → Skip MainMenu, load saved level directly
-            Debug.Log($"[LoginUI] Returning player detected (level {savedLevel}) → Loading saved level directly!");
-
-            string sceneName = "Level";
-            if (savedLevel < SceneManager.sceneCountInBuildSettings)
-            {
-                sceneName = System.IO.Path.GetFileNameWithoutExtension(
-                    SceneUtility.GetScenePathByBuildIndex(savedLevel)
-                );
-            }
-
-            Debug.Log($"[LoginUI] Loading scene: {sceneName} (index {savedLevel})");
-            SceneManager.LoadScene(savedLevel);
-        }
+        isBusy = false;
+        SetButtonsEnabled(true);
     }
 
-    /**
-     * Validate username
-     */
+    private void SetButtonsEnabled(bool enabled)
+    {
+        if (loginButton != null) loginButton.interactable = enabled;
+        if (registerButton != null) registerButton.interactable = enabled;
+    }
+
+    private void ShowStatus(string message, bool isError)
+    {
+        if (statusText == null) return;
+        statusText.text = message;
+        statusText.color = isError ? Color.red : Color.white;
+    }
+
     private bool ValidateUsername(string username)
     {
         if (string.IsNullOrEmpty(username))
@@ -471,51 +477,18 @@ public class LoginUI : MonoBehaviour
             return false;
         }
 
-        if (username.Length < 3)
+        if (username.Length < 3 || username.Length > 20)
         {
-            ShowStatus("Username must be at least 3 characters", true);
-            return false;
-        }
-
-        if (username.Length > 20)
-        {
-            ShowStatus("Username must be 20 characters or less", true);
+            ShowStatus("Username must be 3–20 characters", true);
             return false;
         }
 
         if (!System.Text.RegularExpressions.Regex.IsMatch(username, "^[a-zA-Z0-9]+$"))
         {
-            ShowStatus("Username: letters and numbers only", true);
+            ShowStatus("Letters and numbers only", true);
             return false;
         }
 
         return true;
-    }
-
-    /**
-     * Show status message
-     */
-    private void ShowStatus(string message, bool isError)
-    {
-        if (statusText != null)
-        {
-            statusText.text = message;
-            statusText.color = isError ? Color.red : Color.white;
-        }
-    }
-
-    /**
-     * Enable/disable buttons
-     */
-    private void SetButtonsEnabled(bool enabled)
-    {
-        if (registerButton != null)
-        {
-            registerButton.interactable = enabled;
-        }
-        if (loginButton != null)
-        {
-            loginButton.interactable = enabled;
-        }
     }
 }

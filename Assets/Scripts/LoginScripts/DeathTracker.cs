@@ -1,3 +1,4 @@
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -41,7 +42,19 @@ public class DeathTracker : MonoBehaviour
     /**
      * Call this method whenever the player dies/fails
      */
-    public async void RecordDeath()
+    //public async void RecordDeath()
+    //{
+    //    if (CloudSaveManager.Instance == null)
+    //    {
+    //        Debug.LogWarning("[DeathTracker] CloudSaveManager not found!");
+    //        return;
+    //    }
+
+    //    Debug.Log($"[DeathTracker] Recording death in level {currentLevelIndex}");
+    //    await CloudSaveManager.Instance.RecordFail(currentLevelIndex);
+    //}
+
+    public void RecordDeath()
     {
         if (CloudSaveManager.Instance == null)
         {
@@ -50,7 +63,15 @@ public class DeathTracker : MonoBehaviour
         }
 
         Debug.Log($"[DeathTracker] Recording death in level {currentLevelIndex}");
-        await CloudSaveManager.Instance.RecordFail(currentLevelIndex);
+        StartCoroutine(RecordDeathFlow());
+    }
+
+    private IEnumerator RecordDeathFlow()
+    {
+        var recordTask = CloudSaveManager.Instance.RecordFail(currentLevelIndex);
+        yield return new WaitUntil(() => recordTask.IsCompleted);
+
+        Debug.Log($"[DeathTracker] ✓ Death recorded");
     }
 
     /**
