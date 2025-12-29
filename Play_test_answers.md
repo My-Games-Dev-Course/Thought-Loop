@@ -140,11 +140,21 @@
   "currentLevelIndex": 10,
   "highestLevelReached": 10,
   "totalDeaths": 3,
+  "bestScore": -1,
+  "totalCompletions": 0,
+  "lastPlayed": "2025-12-29T18:02:07.5560000+02:00",
   "failsPerLevel": [
-    { "levelIndex": 8, "fails": 2 },
-    { "levelIndex": 9, "fails": 1 }
+    {
+      "levelIndex": 8,
+      "fails": 2
+    },
+    {
+      "levelIndex": 9,
+      "fails": 1
+    }
   ]
 }
+
 ```
 
 ---
