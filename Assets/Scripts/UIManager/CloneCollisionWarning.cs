@@ -19,7 +19,7 @@ public class CloneCollisionWarning : MonoBehaviour
     [Header("Detection Settings")]
     [SerializeField] private string playerTag = "Player";
     [SerializeField] private string cloneTag = "Clone";
-    [SerializeField] private float checkInterval = 0.1f; // How often to check for collisions
+    //[SerializeField] private float checkInterval = 0.1f; // How often to check for collisions
 
     private bool isShowingWarning = false;
     private GameObject player;

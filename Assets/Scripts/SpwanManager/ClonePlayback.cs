@@ -130,9 +130,13 @@ public class ClonePlayback : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;  // Modern Unity API
         rb.gravityScale = fallGravityScale;
 
-        // Stop running animation (clone should be idle while falling)
+        // Set clone to IDLE animation (stop running and jumping)
         if (animator != null)
+        {
             animator.SetBool("isRunning", false);
+            animator.SetBool("isJumping", false);
+            Debug.Log("[ClonePlayback] Animation set to IDLE");
+        }
 
         Debug.Log($"[ClonePlayback] Enabled PHYSICS - clone will now fall to ground (gravity: {fallGravityScale})");
     }

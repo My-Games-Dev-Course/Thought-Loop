@@ -772,6 +772,10 @@ PrefabInstance:
       propertyPath: warningText
       value: 
       objectReference: {fileID: 135876633}
+    - target: {fileID: 7316623393637290045, guid: b746c6664509b474d81a1d51c54acbd3, type: 3}
+      propertyPath: displayDuration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8123917640827116186, guid: b746c6664509b474d81a1d51c54acbd3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 273.37485
