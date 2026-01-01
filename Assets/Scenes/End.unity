@@ -10386,11 +10386,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Congratulations! You have got to a spcaeshipe now and overcomed the clones.
+  m_text: Congratulations! You have reached the spaceship and overcome the clones.
     You can return home!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2966b1a13e17b0b4198438a92abebfdc, type: 2}
+  m_sharedMaterial: {fileID: 971100241058250364, guid: 2966b1a13e17b0b4198438a92abebfdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10414,8 +10414,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10452,7 +10452,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 1.498158, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -10486,7 +10486,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 971100241058250364, guid: 2966b1a13e17b0b4198438a92abebfdc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10650,7 +10650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6595429902393924283, guid: 3ee4eb5106a229e4899f359857230969, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 238
+      value: 247
       objectReference: {fileID: 0}
     - target: {fileID: 6595429902393924283, guid: 3ee4eb5106a229e4899f359857230969, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -10700,17 +10700,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6595429902393924283, guid: 3ee4eb5106a229e4899f359857230969, type: 3}
   m_PrefabInstance: {fileID: 2144027582}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2144027585 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8380087276967183695, guid: 3ee4eb5106a229e4899f359857230969, type: 3}
-  m_PrefabInstance: {fileID: 2144027582}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 622859912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!114 &2144027591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10740,9 +10729,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewGameButton
   firstSceneName: MainMenu
   useBuildIndex: 1
-  firstLevelIndex: 1
-  newGameButton: {fileID: 2144027585}
-  completeGameButton: {fileID: 2144027585}
+  sceneIndex: 1
+  finalLevelIndex: 11
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
