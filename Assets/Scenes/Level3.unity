@@ -337,6 +337,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PressureButton5
       objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.b
+      value: 0.06109991
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.g
+      value: 0.89433956
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.r
+      value: 0.038810864
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -413,6 +425,18 @@ PrefabInstance:
     - target: {fileID: 3913878384326707071, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
       propertyPath: m_Name
       value: PressureButton2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9902706
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1203,6 +1227,95 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7f542eb3d22ad2499b6bef8fb01a2d6, type: 3}
+--- !u!1001 &936467712
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1982633505471476515, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Size.x
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982633505471476515, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Size.y
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982633505471476515, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.011
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982633505471476515, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787436056117857663, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913878384326707071, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Name
+      value: PressureButton6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.g
+      value: 0.95895517
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
 --- !u!114 &937934492 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8783856073706472011, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
@@ -1527,6 +1640,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PressureButton
       objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.b
+      value: 0.07317187
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.g
+      value: 0.07317187
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.r
+      value: 0.90188676
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1692,6 +1817,18 @@ PrefabInstance:
     - target: {fileID: 3913878384326707071, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
       propertyPath: m_Name
       value: PressureButton4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5064173
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.r
+      value: 0.1778213
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1874,7 +2011,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1160306370821401529, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 19
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 1160306370821401529, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2019,6 +2156,18 @@ PrefabInstance:
     - target: {fileID: 3913878384326707071, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
       propertyPath: m_Name
       value: PressureButton3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.b
+      value: 0.93962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.g
+      value: 0.92143947
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170979863166488881, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
+      propertyPath: m_Color.r
+      value: 0.2818867
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2410,7 +2559,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Which of the 2 combinations are correct?
+  m_text: Does the colors means something?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2566,6 +2715,7 @@ SceneRoots:
   - {fileID: 1410524990}
   - {fileID: 1370312953}
   - {fileID: 195538978}
+  - {fileID: 936467712}
   - {fileID: 4774458640850112569}
   - {fileID: 689488103}
   - {fileID: 18176949}
