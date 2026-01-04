@@ -368,7 +368,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 162287202422169059, guid: e8de082bae81e174393b6c0eb9f90cdd, type: 3}
       propertyPath: m_fontSize
-      value: 40
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 162287202422169059, guid: e8de082bae81e174393b6c0eb9f90cdd, type: 3}
       propertyPath: m_margin.w
@@ -392,7 +392,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 2966b1a13e17b0b4198438a92abebfdc, type: 2}
     - target: {fileID: 162287202422169059, guid: e8de082bae81e174393b6c0eb9f90cdd, type: 3}
       propertyPath: m_fontSizeBase
-      value: 40
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 162287202422169059, guid: e8de082bae81e174393b6c0eb9f90cdd, type: 3}
       propertyPath: m_sharedMaterial
@@ -2411,7 +2411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 19, y: 92}
+  m_AnchoredPosition: {x: 114, y: 92}
   m_SizeDelta: {x: 373.3, y: -178.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2084402493
@@ -2434,7 +2434,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: What about 2 clones and enemies?
+  m_text: What about managing 2 clones?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2966b1a13e17b0b4198438a92abebfdc, type: 2}
   m_sharedMaterial: {fileID: 971100241058250364, guid: 2966b1a13e17b0b4198438a92abebfdc, type: 2}
