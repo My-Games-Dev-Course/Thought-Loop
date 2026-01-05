@@ -42,7 +42,7 @@ public class LoginUI : MonoBehaviour
         if (usernameInput != null)
             usernameInput.onSubmit.AddListener(_ => OnLoginClicked());
 
-        ShowStatus("Enter username - Register for new, Login for existing", false);
+        ShowStatus("", false);
         Debug.Log("[LoginUI] Setup complete");
     }
 
@@ -195,7 +195,7 @@ public class LoginUI : MonoBehaviour
     {
         if (statusText == null) return;
         statusText.text = message;
-        statusText.color = isError ? Color.red : Color.white;
+        statusText.color = isError ? Color.red * 1.25f : Color.white;
     }
 
     private bool ValidateUsername(string username)
