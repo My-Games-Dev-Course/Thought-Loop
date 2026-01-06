@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 // Handles the victory popup that appears when reaching the flag
 // Pauses the game and allows player to proceed to next level
-// NOW WITH CLOUD SAVE + PLAYER DATA TRACKING
+// NOW WITH CLOUD SAVE + PLAYER DATA TRACKING + ENTER KEY SUPPORT
 
 public class VictoryPopup : MonoBehaviour
 {
@@ -43,6 +43,16 @@ public class VictoryPopup : MonoBehaviour
 
         // Reset state on scene load
         ResetPopupState();
+    }
+
+    void Update()
+    {
+        // Check for Enter key press when popup is showing
+        if (isShowing && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
+        {
+            Debug.Log("[VictoryPopup] Enter key pressed - proceeding to next level");
+            OnNextLevelClicked();
+        }
     }
 
     private void ResetPopupState()
@@ -146,77 +156,13 @@ public class VictoryPopup : MonoBehaviour
         Debug.Log("[VictoryPopup] Game resumed. Time.timeScale = 1");
     }
 
-    ///// <summary>
-    ///// Called when the "Next Level" button is clicked
-    ///// SAVES PROGRESS TO CLOUD USING PLAYER DATA SYSTEM
-    ///// </summary>
-    //private async void OnNextLevelClicked()
-    //{
-    //    Debug.Log("[VictoryPopup] Next Level button clicked!");
-
-    //    // Resume game before loading next scene
-    //    Time.timeScale = 1f;
-
-    //    // ========== CLOUD SAVE INTEGRATION WITH PLAYER DATA ==========
-    //    // Get current scene build index
-    //    Scene currentScene = SceneManager.GetActiveScene();
-    //    int currentBuildIndex = currentScene.buildIndex;
-
-    //    // Calculate next level build index
-    //    int nextLevelIndex;
-    //    if (useBuildIndex)
-    //    {
-    //        nextLevelIndex = nextSceneIndex;
-    //    }
-    //    else
-    //    {
-    //        // If loading by name, get its build index
-    //        nextLevelIndex = SceneUtility.GetBuildIndexByScenePath(nextSceneName);
-    //        if (nextLevelIndex == -1)
-    //        {
-    //            // Fallback: use current + 1
-    //            nextLevelIndex = currentBuildIndex + 1;
-    //        }
-    //    }
-
-    //    Debug.Log($"[VictoryPopup] Current level: {currentBuildIndex}, Next level: {nextLevelIndex}");
-
-    //    // Save progress to cloud (just update current level, NOT complete game)
-    //    if (CloudSaveManager.Instance != null && CloudSaveManager.Instance.IsSignedIn())
-    //    {
-    //        Debug.Log($"[VictoryPopup] Saving progress to cloud...");
-    //        await CloudSaveManager.Instance.UpdateCurrentLevel(nextLevelIndex);
-    //        Debug.Log($"[VictoryPopup] ✓ Progress saved! Next level: {nextLevelIndex}");
-    //    }
-    //    else
-    //    {
-    //        Debug.LogWarning("[VictoryPopup] Not signed in - progress won't be saved to cloud");
-    //    }
-
-    //    // Also save locally as backup
-    //    PlayerPrefs.SetInt("CurrentLevelIndex", nextLevelIndex);
-    //    PlayerPrefs.Save();
-    //    Debug.Log($"[VictoryPopup] Saved level index {nextLevelIndex} to PlayerPrefs");
-    //    // ========== END CLOUD SAVE ==========
-
-    //    // Load next scene with fade
-    //    if (useBuildIndex)
-    //    {
-    //        LoadSceneWithFade(nextSceneIndex);
-    //    }
-    //    else
-    //    {
-    //        LoadSceneWithFade(nextSceneName);
-    //    }
-    //}
-
     /// <summary>
-    /// Called when the "Next Level" button is clicked
+    /// Called when the "Next Level" button is clicked or Enter key is pressed
     /// SAVES PROGRESS TO CLOUD USING PLAYER DATA SYSTEM
     /// </summary>
     private void OnNextLevelClicked()
     {
-        Debug.Log("[VictoryPopup] Next Level button clicked!");
+        Debug.Log("[VictoryPopup] Next Level triggered!");
         StartCoroutine(NextLevelFlow());
     }
 
@@ -225,7 +171,6 @@ public class VictoryPopup : MonoBehaviour
         // Resume game before loading next scene
         Time.timeScale = 1f;
 
-        // ========== CLOUD SAVE INTEGRATION WITH PLAYER DATA ==========
         // Get current scene build index
         Scene currentScene = SceneManager.GetActiveScene();
         int currentBuildIndex = currentScene.buildIndex;
@@ -249,7 +194,7 @@ public class VictoryPopup : MonoBehaviour
 
         Debug.Log($"[VictoryPopup] Current level: {currentBuildIndex}, Next level: {nextLevelIndex}");
 
-        // Save progress to cloud (just update current level, NOT complete game)
+        // Save progress to cloud
         if (CloudSaveManager.Instance != null && CloudSaveManager.Instance.IsSignedIn())
         {
             Debug.Log($"[VictoryPopup] Saving progress to cloud...");
@@ -264,11 +209,10 @@ public class VictoryPopup : MonoBehaviour
             Debug.LogWarning("[VictoryPopup] Not signed in - progress won't be saved to cloud");
         }
 
-        // Also save locally as backup
+        // Save locally as backup
         PlayerPrefs.SetInt("CurrentLevelIndex", nextLevelIndex);
         PlayerPrefs.Save();
         Debug.Log($"[VictoryPopup] Saved level index {nextLevelIndex} to PlayerPrefs");
-        // ========== END CLOUD SAVE ==========
 
         // Load next scene with fade
         if (useBuildIndex)
