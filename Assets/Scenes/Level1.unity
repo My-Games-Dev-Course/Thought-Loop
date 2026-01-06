@@ -1938,10 +1938,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: TimerCircle
       objectReference: {fileID: 0}
+    - target: {fileID: 3243491352386623459, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3243491352386623459, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 5042936293108285091, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
       propertyPath: cloneSpawner
       value: 
       objectReference: {fileID: 1473503621}
+    - target: {fileID: 5321597219028768430, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
+      propertyPath: m_Color.b
+      value: 0.13725491
+      objectReference: {fileID: 0}
+    - target: {fileID: 5321597219028768430, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 5321597219028768430, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8627451
+      objectReference: {fileID: 0}
     - target: {fileID: 8826266899299350339, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1968,11 +1988,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8826266899299350339, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 76
       objectReference: {fileID: 0}
     - target: {fileID: 8826266899299350339, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 74
       objectReference: {fileID: 0}
     - target: {fileID: 8826266899299350339, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2004,11 +2024,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8826266899299350339, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 611
+      value: 629
       objectReference: {fileID: 0}
     - target: {fileID: 8826266899299350339, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -10
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 8826266899299350339, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
