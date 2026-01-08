@@ -90,7 +90,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7012bd9cde4eea4ea55e34cd0eef86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HintPopup
-  messageText: {fileID: 2914803194731133739}
+  popupPanel: {fileID: 0}
+  hintText: {fileID: 0}
+  closeButton: {fileID: 0}
+  pauseGameWhenShown: 1
+  closeInputAction:
+    m_Name: Close Input
+    m_Type: 1
+    m_ExpectedControlType: 
+    m_Id: 02bb8baf-f2db-441f-822f-7bb69eaf3285
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 6b9a60c9-016a-4419-bc17-361e6d6079d0
+      m_Path: <Keyboard>/enter
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Close Input
+      m_Flags: 0
+    m_Flags: 0
 --- !u!114 &3385160864064158902
 MonoBehaviour:
   m_ObjectHideFlags: 0

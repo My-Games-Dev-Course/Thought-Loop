@@ -124,11 +124,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4468076120934171336, guid: 560f2f558c4d3f64794cba66842bb03c, type: 3}
   m_PrefabInstance: {fileID: 2124474696}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &357042768 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 230305444120040156, guid: ea9c7bbdc71c96d408376ea591101c0c, type: 3}
-  m_PrefabInstance: {fileID: 1785146549576228592}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &380626961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -806,7 +801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1160306370821401529, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 1160306370821401529, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1158,17 +1153,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa76f79421a870e46bd6ace60d8cdc70, type: 3}
---- !u!114 &1681923693 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2914803194731133739, guid: ea9c7bbdc71c96d408376ea591101c0c, type: 3}
-  m_PrefabInstance: {fileID: 1785146549576228592}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1725733342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,22 +1609,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HintPopup
       objectReference: {fileID: 0}
-    - target: {fileID: 2551987635996302661, guid: ea9c7bbdc71c96d408376ea591101c0c, type: 3}
-      propertyPath: popupPanel
-      value: 
-      objectReference: {fileID: 357042768}
-    - target: {fileID: 2551987635996302661, guid: ea9c7bbdc71c96d408376ea591101c0c, type: 3}
-      propertyPath: messageText
-      value: 
-      objectReference: {fileID: 1681923693}
-    - target: {fileID: 2551987635996302661, guid: ea9c7bbdc71c96d408376ea591101c0c, type: 3}
-      propertyPath: closeInputAction.m_Name
-      value: Close Input
-      objectReference: {fileID: 0}
-    - target: {fileID: 2551987635996302661, guid: ea9c7bbdc71c96d408376ea591101c0c, type: 3}
-      propertyPath: closeInputAction.m_SingletonActionBindings.Array.data[0].m_Action
-      value: Close Input
-      objectReference: {fileID: 0}
     - target: {fileID: 7068850854341787147, guid: ea9c7bbdc71c96d408376ea591101c0c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1944,21 +1912,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 763935508}
     m_Modifications:
-    - target: {fileID: 2161461398313695272, guid: 378811ed82a755b47b553d6c413f8949, type: 3}
-      propertyPath: button
-      value: 
-      objectReference: {fileID: 6469273896779446912}
     - target: {fileID: 2362293841418305409, guid: 378811ed82a755b47b553d6c413f8949, type: 3}
       propertyPath: m_Name
       value: HintButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 4781885090299694527, guid: 378811ed82a755b47b553d6c413f8949, type: 3}
-      propertyPath: m_Transition
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4781885090299694527, guid: 378811ed82a755b47b553d6c413f8949, type: 3}
-      propertyPath: m_Navigation.m_Mode
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8896935548429579035, guid: 378811ed82a755b47b553d6c413f8949, type: 3}
       propertyPath: m_Pivot.x
@@ -2050,17 +2006,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8896935548429579035, guid: 378811ed82a755b47b553d6c413f8949, type: 3}
   m_PrefabInstance: {fileID: 4542874756379344335}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6469273896779446912 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4781885090299694527, guid: 378811ed82a755b47b553d6c413f8949, type: 3}
-  m_PrefabInstance: {fileID: 4542874756379344335}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1001 &7060296788022142933
 PrefabInstance:
   m_ObjectHideFlags: 0
