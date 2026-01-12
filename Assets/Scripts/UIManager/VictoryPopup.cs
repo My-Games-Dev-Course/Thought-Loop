@@ -4,10 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-// Handles the victory popup that appears when reaching the flag
-// Pauses the game and allows player to proceed to next level
-// NOW WITH CLOUD SAVE + PLAYER DATA TRACKING + ENTER KEY SUPPORT
-
+// Shows victory popup when player completes a level
+// Handles cloud save and scene transitions
 public class VictoryPopup : MonoBehaviour
 {
     public static VictoryPopup Instance { get; private set; }
@@ -30,7 +28,6 @@ public class VictoryPopup : MonoBehaviour
 
     void Awake()
     {
-        // Singleton pattern
         if (Instance == null)
         {
             Instance = this;
@@ -41,13 +38,12 @@ public class VictoryPopup : MonoBehaviour
             return;
         }
 
-        // Reset state on scene load
         ResetPopupState();
     }
 
     void Update()
     {
-        // Check for Enter key press when popup is showing
+        // Check if Enter key was pressed while popup is showing
         if (isShowing && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
         {
             Debug.Log("[VictoryPopup] Enter key pressed - proceeding to next level");
@@ -57,38 +53,29 @@ public class VictoryPopup : MonoBehaviour
 
     private void ResetPopupState()
     {
-        // Reset showing state
         isShowing = false;
-
-        // Make sure game is not paused
         Time.timeScale = 1f;
 
-        // Make sure popup is hidden
         if (popupPanel != null)
         {
             popupPanel.SetActive(false);
         }
 
-        // Setup button listener
         if (nextLevelButton != null)
         {
-            nextLevelButton.onClick.RemoveAllListeners(); // Clear old listeners
+            nextLevelButton.onClick.RemoveAllListeners();
             nextLevelButton.onClick.AddListener(OnNextLevelClicked);
         }
 
         Debug.Log("[VictoryPopup] Popup state reset");
     }
 
-    /// <summary>
-    /// Show the victory popup and pause the game
-    /// </summary>
     public void ShowVictory(string sceneName = "", int sceneIndex = -1)
     {
         if (isShowing) return;
 
         Debug.Log("[VictoryPopup] Showing victory popup!");
 
-        // Store next scene info if provided
         if (!string.IsNullOrEmpty(sceneName))
         {
             nextSceneName = sceneName;
@@ -100,13 +87,10 @@ public class VictoryPopup : MonoBehaviour
             useBuildIndex = true;
         }
 
-        // Set texts
         if (congratsText != null)
         {
-            // Show level completion message with death stats
             string message = congratsMessage;
 
-            // Add death count if CloudSaveManager is available
             if (CloudSaveManager.Instance != null)
             {
                 int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
@@ -126,22 +110,17 @@ public class VictoryPopup : MonoBehaviour
             congratsText.text = message;
         }
 
-        // Show popup
         if (popupPanel != null)
         {
             popupPanel.SetActive(true);
         }
 
-        // PAUSE THE GAME
         Time.timeScale = 0f;
         isShowing = true;
 
         Debug.Log("[VictoryPopup] Game paused. Time.timeScale = 0");
     }
 
-    /// <summary>
-    /// Hide the popup and resume the game
-    /// </summary>
     public void HidePopup()
     {
         if (popupPanel != null)
@@ -149,33 +128,44 @@ public class VictoryPopup : MonoBehaviour
             popupPanel.SetActive(false);
         }
 
-        // RESUME THE GAME
         Time.timeScale = ResumeGame;
         isShowing = false;
 
         Debug.Log("[VictoryPopup] Game resumed. Time.timeScale = 1");
     }
 
-    /// <summary>
-    /// Called when the "Next Level" button is clicked or Enter key is pressed
-    /// SAVES PROGRESS TO CLOUD USING PLAYER DATA SYSTEM
-    /// </summary>
     private void OnNextLevelClicked()
     {
-        Debug.Log("[VictoryPopup] Next Level triggered!");
+        Debug.Log("[VictoryPopup] Next Level button clicked!");
         StartCoroutine(NextLevelFlow());
+    }
+
+    // Stop enemies and player from moving during scene transition
+    private void DisableGameplayScripts()
+    {
+        EnemyMovement[] enemies = FindObjectsOfType<EnemyMovement>();
+        foreach (var enemy in enemies)
+        {
+            enemy.enabled = false;
+        }
+
+        playerMovment player = FindObjectOfType<playerMovment>();
+        if (player != null)
+        {
+            player.enabled = false;
+        }
+
+        Debug.Log($"[VictoryPopup] Disabled {enemies.Length} enemies and player");
     }
 
     private IEnumerator NextLevelFlow()
     {
-        // Resume game before loading next scene
-        Time.timeScale = 1f;
+        // Make sure nothing can move or attack during transition
+        DisableGameplayScripts();
 
-        // Get current scene build index
         Scene currentScene = SceneManager.GetActiveScene();
         int currentBuildIndex = currentScene.buildIndex;
 
-        // Calculate next level build index
         int nextLevelIndex;
         if (useBuildIndex)
         {
@@ -183,38 +173,44 @@ public class VictoryPopup : MonoBehaviour
         }
         else
         {
-            // If loading by name, get its build index
             nextLevelIndex = SceneUtility.GetBuildIndexByScenePath(nextSceneName);
             if (nextLevelIndex == -1)
             {
-                // Fallback: use current + 1
                 nextLevelIndex = currentBuildIndex + 1;
             }
         }
 
         Debug.Log($"[VictoryPopup] Current level: {currentBuildIndex}, Next level: {nextLevelIndex}");
 
-        // Save progress to cloud
+        // Wait for cloud save to finish
         if (CloudSaveManager.Instance != null && CloudSaveManager.Instance.IsSignedIn())
         {
             Debug.Log($"[VictoryPopup] Saving progress to cloud...");
 
             var updateTask = CloudSaveManager.Instance.UpdateCurrentLevel(nextLevelIndex);
-            yield return new WaitUntil(() => updateTask.IsCompleted);
 
-            Debug.Log($"[VictoryPopup] ✓ Progress saved! Next level: {nextLevelIndex}");
+            while (!updateTask.IsCompleted)
+            {
+                yield return null;
+            }
+
+            Debug.Log($"[VictoryPopup] Progress saved! Next level: {nextLevelIndex}");
         }
         else
         {
             Debug.LogWarning("[VictoryPopup] Not signed in - progress won't be saved to cloud");
         }
 
-        // Save locally as backup
+        // Also save locally as backup
         PlayerPrefs.SetInt("CurrentLevelIndex", nextLevelIndex);
         PlayerPrefs.Save();
         Debug.Log($"[VictoryPopup] Saved level index {nextLevelIndex} to PlayerPrefs");
 
-        // Load next scene with fade
+        // Now unpause the game right before loading
+        Time.timeScale = 1f;
+        Debug.Log("[VictoryPopup] Game unpaused - loading scene now");
+
+        // Load scene
         if (useBuildIndex)
         {
             LoadSceneWithFade(nextSceneIndex);
@@ -225,9 +221,6 @@ public class VictoryPopup : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Load scene with fade effect (by name)
-    /// </summary>
     private void LoadSceneWithFade(string sceneName)
     {
         if (SceneFader.Instance != null)
@@ -237,15 +230,11 @@ public class VictoryPopup : MonoBehaviour
         }
         else
         {
-            // Fallback without fade
             Debug.LogWarning("[VictoryPopup] SceneFader not found! Loading without fade.");
             SceneManager.LoadScene(sceneName);
         }
     }
 
-    /// <summary>
-    /// Load scene with fade effect (by index)
-    /// </summary>
     private void LoadSceneWithFade(int index)
     {
         if (SceneFader.Instance != null)
@@ -255,7 +244,6 @@ public class VictoryPopup : MonoBehaviour
         }
         else
         {
-            // Fallback without fade
             Debug.LogWarning("[VictoryPopup] SceneFader not found! Loading without fade.");
             SceneManager.LoadScene(index);
         }
@@ -263,7 +251,6 @@ public class VictoryPopup : MonoBehaviour
 
     void OnDestroy()
     {
-        // Make sure game is unpaused if popup is destroyed
         Time.timeScale = 1f;
     }
 }
