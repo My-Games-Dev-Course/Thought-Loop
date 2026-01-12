@@ -56,7 +56,7 @@ public class DeathMessage : MonoBehaviour
         // Display message
         if (deathText != null)
         {
-            deathText.text = $"YOU DIED!\n\n{reason}";
+            deathText.text = $"{reason}";
         }
 
         if (deathPanel != null)

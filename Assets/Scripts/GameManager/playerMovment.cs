@@ -229,7 +229,7 @@ public class playerMovment : MonoBehaviour
             // Show death message with reason
             if (DeathMessage.Instance != null)
             {
-                DeathMessage.Instance.ShowDeathMessage("Hit by your clone!");
+                DeathMessage.Instance.ShowDeathMessage($"YOU DIED!\n\nHit by your clone!");
             }
             else
             {

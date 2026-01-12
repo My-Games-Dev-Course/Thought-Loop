@@ -25,7 +25,7 @@ public class CrushDetector : MonoBehaviour
             // Show death message
             if (DeathMessage.Instance != null)
             {
-                DeathMessage.Instance.ShowDeathMessage("Crushed by falling wall!");
+                DeathMessage.Instance.ShowDeathMessage($"YOU DIED!\n\nCrushed by falling wall!");
             }
             else
             {

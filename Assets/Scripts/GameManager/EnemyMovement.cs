@@ -133,15 +133,14 @@ public class EnemyMovement : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if collided with player or clone
-        if (collision.gameObject.CompareTag(playerTag) ||
-            collision.gameObject.CompareTag(cloneTag))
+        if (collision.gameObject.CompareTag(playerTag))
         {
             if (DeathTracker.Instance != null)
             {
                 DeathTracker.Instance.RecordDeath();
             }
 
-            Debug.Log($"[EnemyMovement] Collided with {collision.gameObject.tag}! Restarting level...");
+            Debug.Log("[EnemyMovement] Collided with Player! Restarting level...");
 
             // Freeze everything immediately
             Time.timeScale = 0f;
@@ -149,7 +148,33 @@ public class EnemyMovement : MonoBehaviour
             // Show death message
             if (DeathMessage.Instance != null)
             {
-                DeathMessage.Instance.ShowDeathMessage("Killed by enemy!");
+                DeathMessage.Instance.ShowDeathMessage($"YOU DIED!\n\nKilled by enemy!");
+            }
+            else
+            {
+                // Fallback if no death message system
+                Time.timeScale = 1f;
+                RestartScene();
+            }
+            return;
+        }
+
+        if (collision.gameObject.CompareTag(cloneTag))
+        {
+            if (DeathTracker.Instance != null)
+            {
+                DeathTracker.Instance.RecordDeath();
+            }
+
+            Debug.Log("[EnemyMovement] Collided with Clone! Restarting level...");
+
+            // Freeze everything immediately
+            Time.timeScale = 0f;
+
+            // Show death message
+            if (DeathMessage.Instance != null)
+            {
+                DeathMessage.Instance.ShowDeathMessage($"YOUR CLONE DIED! \n\nkilled by enemy!");
             }
             else
             {
@@ -181,15 +206,15 @@ public class EnemyMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Check triggers for player/clone collision
-        if (other.CompareTag(playerTag) || other.CompareTag(cloneTag))
+        // Check triggers for player collision
+        if (other.CompareTag(playerTag))
         {
             if (DeathTracker.Instance != null)
             {
                 DeathTracker.Instance.RecordDeath();
             }
 
-            Debug.Log($"[EnemyMovement] Triggered with {other.tag}! Restarting level...");
+            Debug.Log("[EnemyMovement] Triggered with Player! Restarting level...");
 
             // Freeze everything immediately
             Time.timeScale = 0f;
@@ -197,7 +222,34 @@ public class EnemyMovement : MonoBehaviour
             // Show death message
             if (DeathMessage.Instance != null)
             {
-                DeathMessage.Instance.ShowDeathMessage("Killed by enemy!");
+                DeathMessage.Instance.ShowDeathMessage($"YOU DIED!\n\nKilled by enemy!");
+            }
+            else
+            {
+                // Fallback if no death message system
+                Time.timeScale = 1f;
+                RestartScene();
+            }
+            return;
+        }
+
+        // Check triggers for clone collision
+        if (other.CompareTag(cloneTag))
+        {
+            if (DeathTracker.Instance != null)
+            {
+                DeathTracker.Instance.RecordDeath();
+            }
+
+            Debug.Log("[EnemyMovement] Triggered with Clone! Restarting level...");
+
+            // Freeze everything immediately
+            Time.timeScale = 0f;
+
+            // Show death message
+            if (DeathMessage.Instance != null)
+            {
+                DeathMessage.Instance.ShowDeathMessage($"YOUR CLONE DIED!\n\nkilled by enemy!");
             }
             else
             {
