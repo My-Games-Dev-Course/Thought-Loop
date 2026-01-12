@@ -7,9 +7,6 @@ public class CrushDetector : MonoBehaviour
     [Tooltip("Tag to detect (usually 'Player')")]
     [SerializeField] private string targetTag = "Player";
 
-    //[Tooltip("Should it also detect Clone?")]
-    //[SerializeField] private bool detectClone = false;
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if Player touched the crush detector
@@ -19,21 +16,28 @@ public class CrushDetector : MonoBehaviour
             {
                 DeathTracker.Instance.RecordDeath();
             }
-            Debug.Log("[CrushDetector] Player crushed! Restarting scene...");
-            RestartScene();
-        }
 
-        //// Optionally detect clone too
-        //if (detectClone && other.CompareTag("Clone"))
-        //{
-        //    Debug.Log("[CrushDetector] Clone crushed! Restarting scene...");
-        //    RestartScene();
-        //}
+            Debug.Log("[CrushDetector] Player crushed! Restarting scene...");
+
+            // Stop all movement immediately
+            Time.timeScale = 0f;
+
+            // Show death message
+            if (DeathMessage.Instance != null)
+            {
+                DeathMessage.Instance.ShowDeathMessage("Crushed by falling wall!");
+            }
+            else
+            {
+                // Fallback if no death message system
+                Time.timeScale = 1f;
+                RestartScene();
+            }
+        }
     }
 
     private void RestartScene()
     {
-        // Reload the current scene
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }

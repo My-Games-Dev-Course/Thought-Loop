@@ -7,14 +7,13 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float speed = 3f;
 
     [Header("Edge Detection Settings")]
-    [SerializeField] private float edgeCheckDistance = 0.3f; // How far ahead to check for edge
-    [SerializeField] private float groundCheckDistance = 0.5f; // How far down to check for ground
-    [SerializeField] private LayerMask groundLayer = 1; // Layer for ground/platforms (NOT player/clone)
+    [SerializeField] private float edgeCheckDistance = 0.3f;
+    [SerializeField] private float groundCheckDistance = 0.5f;
+    [SerializeField] private LayerMask groundLayer = 1;
 
     [Header("Enemy Dimensions")]
-    [SerializeField] private float enemyHalfWidth = 0.5f; // Half width of enemy (auto-calculated if sprite renderer exists)
-    [SerializeField] private float enemyHalfHeight = 0.5f; // Half height of enemy (auto-calculated if sprite renderer exists)
-    //[SerializeField] private bool autoCalculateDimensions = true; // Auto-calculate from sprite renderer or collider
+    [SerializeField] private float enemyHalfWidth = 0.5f;
+    [SerializeField] private float enemyHalfHeight = 0.5f;
 
     [Header("Components")]
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -72,14 +71,12 @@ public class EnemyMovement : MonoBehaviour
     private void CheckForEdge()
     {
         // Check if there's ground ahead in the direction we're moving
-        // Position to check from (slightly ahead of enemy in movement direction)
         Vector2 checkPosition = new Vector2(
             transform.position.x + (direction * (enemyHalfWidth + edgeCheckDistance)),
-            transform.position.y - enemyHalfHeight // Check from bottom of enemy
+            transform.position.y - enemyHalfHeight
         );
 
         // Cast ray downward to check for ground ahead
-        // Filter out player and clone from results
         RaycastHit2D hit = Physics2D.Raycast(checkPosition, Vector2.down, groundCheckDistance, groundLayer);
 
         // Ignore if hit player or clone
@@ -87,19 +84,18 @@ public class EnemyMovement : MonoBehaviour
         {
             if (hit.collider.CompareTag(playerTag) || hit.collider.CompareTag(cloneTag))
             {
-                // Ignore player/clone, continue checking
                 return;
             }
         }
 
-        // If no valid ground detected ahead, we're at/near the edge - turn around
+        // If no valid ground detected ahead, turn around
         if (hit.collider == null)
         {
             ChangeDirection();
             return;
         }
 
-        // Also check for walls/obstacles directly ahead (only on ground layer)
+        // Check for walls/obstacles directly ahead
         Vector2 wallCheckOrigin = new Vector2(
             transform.position.x + (direction * enemyHalfWidth),
             transform.position.y
@@ -112,11 +108,10 @@ public class EnemyMovement : MonoBehaviour
         {
             if (wallHit.collider.CompareTag(playerTag) || wallHit.collider.CompareTag(cloneTag))
             {
-                // Ignore player/clone, don't change direction
                 return;
             }
 
-            // Hit a valid wall/obstacle on the ground layer, turn around
+            // Hit a valid wall, turn around
             ChangeDirection();
         }
     }
@@ -137,7 +132,7 @@ public class EnemyMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if collided with player or clone - restart scene
+        // Check if collided with player or clone
         if (collision.gameObject.CompareTag(playerTag) ||
             collision.gameObject.CompareTag(cloneTag))
         {
@@ -147,22 +142,36 @@ public class EnemyMovement : MonoBehaviour
             }
 
             Debug.Log($"[EnemyMovement] Collided with {collision.gameObject.tag}! Restarting level...");
-            RestartScene();
+
+            // Freeze everything immediately
+            Time.timeScale = 0f;
+
+            // Show death message
+            if (DeathMessage.Instance != null)
+            {
+                DeathMessage.Instance.ShowDeathMessage("Killed by enemy!");
+            }
+            else
+            {
+                // Fallback if no death message system
+                Time.timeScale = 1f;
+                RestartScene();
+            }
             return;
         }
 
-        // Check if collided with button (has PressureButton component) - change direction
+        // Check if collided with button - change direction
         if (collision.gameObject.GetComponent<PressureButton>() != null)
         {
             ChangeDirection();
             return;
         }
 
-        // If hit a wall or obstacle from the side, turn around
+        // If hit a wall from the side, turn around
         ContactPoint2D contact = collision.contacts[0];
-        if (Mathf.Abs(contact.normal.x) > 0.5f) // Hit from side (not top/bottom)
+        if (Mathf.Abs(contact.normal.x) > 0.5f)
         {
-            // Only change direction if we're hitting from the front
+            // Only change direction if hitting from the front
             if ((direction > 0 && contact.normal.x < 0) || (direction < 0 && contact.normal.x > 0))
             {
                 ChangeDirection();
@@ -175,12 +184,31 @@ public class EnemyMovement : MonoBehaviour
         // Check triggers for player/clone collision
         if (other.CompareTag(playerTag) || other.CompareTag(cloneTag))
         {
+            if (DeathTracker.Instance != null)
+            {
+                DeathTracker.Instance.RecordDeath();
+            }
+
             Debug.Log($"[EnemyMovement] Triggered with {other.tag}! Restarting level...");
-            RestartScene();
+
+            // Freeze everything immediately
+            Time.timeScale = 0f;
+
+            // Show death message
+            if (DeathMessage.Instance != null)
+            {
+                DeathMessage.Instance.ShowDeathMessage("Killed by enemy!");
+            }
+            else
+            {
+                // Fallback if no death message system
+                Time.timeScale = 1f;
+                RestartScene();
+            }
             return;
         }
 
-        // Check if triggered with button (has PressureButton component) - change direction
+        // Check if triggered with button - change direction
         if (other.GetComponent<PressureButton>() != null)
         {
             ChangeDirection();
@@ -189,7 +217,6 @@ public class EnemyMovement : MonoBehaviour
 
     private void RestartScene()
     {
-        // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
