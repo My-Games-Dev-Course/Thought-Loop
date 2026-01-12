@@ -35,8 +35,6 @@ public class playerMovment : MonoBehaviour
         if (moveAction.bindings.Count == 0)
         {
             moveAction.AddCompositeBinding("2DVector")
-                .With("Up", "<Keyboard>/w")
-                .With("Up", "<Keyboard>/upArrow")
                 .With("Down", "<Keyboard>/s")
                 .With("Down", "<Keyboard>/downArrow")
                 .With("Left", "<Keyboard>/a")
