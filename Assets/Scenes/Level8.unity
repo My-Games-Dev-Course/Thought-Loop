@@ -1378,7 +1378,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7068850854341787147, guid: ea9c7bbdc71c96d408376ea591101c0c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.0000153
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7068850854341787147, guid: ea9c7bbdc71c96d408376ea591101c0c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1501,12 +1501,12 @@ RectTransform:
   - {fileID: 1377464166}
   - {fileID: 1881328188}
   - {fileID: 761268795}
+  - {fileID: 793559673}
   - {fileID: 1398889617}
   - {fileID: 1085837172}
   - {fileID: 1895998456}
   - {fileID: 1430355545}
   - {fileID: 2043880326}
-  - {fileID: 793559673}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1582,6 +1582,14 @@ PrefabInstance:
     - target: {fileID: 1374716912887341891, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
       propertyPath: m_Name
       value: PauseButton Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219086960719782157, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_margin.x
+      value: -1.8616314
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219086960719782157, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_margin.z
+      value: -6.049593
       objectReference: {fileID: 0}
     - target: {fileID: 7241829596755164034, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
       propertyPath: m_Pivot.x
@@ -1662,6 +1670,14 @@ PrefabInstance:
     - target: {fileID: 7241829596755164034, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652340539639696540, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 51.707
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652340539639696540, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0014839
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2485,7 +2501,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1160306370821401529, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -11.0000305
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 1160306370821401529, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

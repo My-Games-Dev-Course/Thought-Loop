@@ -588,6 +588,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseButton Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5219086960719782157, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_margin.x
+      value: 2.3267117
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219086960719782157, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_margin.z
+      value: -1.3959236
+      objectReference: {fileID: 0}
     - target: {fileID: 7241829596755164034, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -667,6 +675,14 @@ PrefabInstance:
     - target: {fileID: 7241829596755164034, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652340539639696540, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 51.713
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652340539639696540, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0014915
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1085,11 +1101,11 @@ RectTransform:
   - {fileID: 675753017}
   - {fileID: 2084402492}
   - {fileID: 1377464166}
+  - {fileID: 538781946}
   - {fileID: 1398889617}
   - {fileID: 1085837172}
   - {fileID: 263057383}
   - {fileID: 1686697017}
-  - {fileID: 538781946}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2585,11 +2601,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3031460255652775846, guid: a93832b1e67f76742b6a1818f4a250b2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 227.61
+      value: 227.60999
       objectReference: {fileID: 0}
     - target: {fileID: 3031460255652775846, guid: a93832b1e67f76742b6a1818f4a250b2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000015258789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3031460255652775846, guid: a93832b1e67f76742b6a1818f4a250b2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

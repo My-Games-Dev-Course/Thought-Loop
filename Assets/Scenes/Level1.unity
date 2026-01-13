@@ -131,6 +131,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseButton Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5219086960719782157, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_margin.x
+      value: -2.7921658
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219086960719782157, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_margin.z
+      value: -6.980385
+      objectReference: {fileID: 0}
     - target: {fileID: 7241829596755164034, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -210,6 +218,14 @@ PrefabInstance:
     - target: {fileID: 7241829596755164034, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652340539639696540, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 51.713
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652340539639696540, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0014915
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1014,11 +1030,11 @@ RectTransform:
   - {fileID: 1278315274}
   - {fileID: 2084402492}
   - {fileID: 1377464166}
+  - {fileID: 96490620}
   - {fileID: 1398889617}
   - {fileID: 1085837172}
   - {fileID: 1207524184}
   - {fileID: 223370341}
-  - {fileID: 96490620}
   - {fileID: 395948957}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

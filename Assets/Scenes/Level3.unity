@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseButton Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5219086960719782157, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_margin.z
+      value: -6.9802
+      objectReference: {fileID: 0}
     - target: {fileID: 7241829596755164034, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -210,6 +214,22 @@ PrefabInstance:
     - target: {fileID: 7241829596755164034, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652340539639696540, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 51.713
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652340539639696540, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 49.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652340539639696540, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0015032
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652340539639696540, guid: e335358b8ad3c2d45838e6cbf8078710, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.17497
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -310,7 +330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1192183251078765726, guid: 52485a4d6831b8a4cb81f090985557d4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.7819977
+      value: 1.7819824
       objectReference: {fileID: 0}
     - target: {fileID: 1192183251078765726, guid: 52485a4d6831b8a4cb81f090985557d4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1265,11 +1285,11 @@ RectTransform:
   - {fileID: 1278315274}
   - {fileID: 2084402492}
   - {fileID: 1377464166}
+  - {fileID: 18972732}
   - {fileID: 1398889617}
   - {fileID: 1085837172}
   - {fileID: 325537925}
   - {fileID: 1395879940}
-  - {fileID: 18972732}
   - {fileID: 1847969932}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2177,6 +2197,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VictoryPopup
       objectReference: {fileID: 0}
+    - target: {fileID: 7834554071350433421, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2561,7 +2585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3031460255652775846, guid: a93832b1e67f76742b6a1818f4a250b2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.9217072
+      value: 1.9216919
       objectReference: {fileID: 0}
     - target: {fileID: 3031460255652775846, guid: a93832b1e67f76742b6a1818f4a250b2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
