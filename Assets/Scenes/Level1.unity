@@ -2088,6 +2088,14 @@ PrefabInstance:
       value: 4278190080
       objectReference: {fileID: 0}
     - target: {fileID: 3841884656982888145, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841884656982888145, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841884656982888145, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
