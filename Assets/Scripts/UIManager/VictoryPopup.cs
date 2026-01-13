@@ -16,7 +16,7 @@ public class VictoryPopup : MonoBehaviour
     [SerializeField] private Button nextLevelButton;
 
     [Header("Popup Settings")]
-    [SerializeField] private string congratsMessage = "Congratulations!";
+    [SerializeField] private string congratsMessage = "Well done!";
     [SerializeField] private float ResumeGame = 1.0f;
 
     [Header("Next Scene Settings")]

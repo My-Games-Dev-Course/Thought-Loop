@@ -1298,6 +1298,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 294277056}
     - target: {fileID: 1605013551069276522, guid: 471350231e9fe6f4b8c9ae2328fb219e, type: 3}
+      propertyPath: congratsMessage
+      value: 'DOING GREAT!                     KEEP GOING! '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605013551069276522, guid: 471350231e9fe6f4b8c9ae2328fb219e, type: 3}
       propertyPath: nextLevelButton
       value: 
       objectReference: {fileID: 937934492}
