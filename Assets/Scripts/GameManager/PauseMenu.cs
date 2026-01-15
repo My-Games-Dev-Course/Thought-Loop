@@ -91,7 +91,7 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        // Check for pause key press - only if not just paused
+        // Toggle pause with escape key
         if (Input.GetKeyDown(pauseKey) && !justPaused)
         {
             if (isPaused)
@@ -102,6 +102,12 @@ public class PauseMenu : MonoBehaviour
             {
                 Pause();
             }
+        }
+
+        // Prevent Enter from doing anything while paused
+        if (isPaused && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
+        {
+            // Key press handled here to avoid conflicts
         }
     }
 
@@ -114,7 +120,8 @@ public class PauseMenu : MonoBehaviour
             return;
         }
 
-        Debug.Log("[PauseMenu] Game paused");
+        Debug.Log("[PauseMenu] ===== PAUSE BUTTON CLICKED =====");
+        Debug.Log("[PauseMenu] Opening pause menu...");
 
         isPaused = true;
         justPaused = true;
@@ -123,6 +130,11 @@ public class PauseMenu : MonoBehaviour
         if (pausePanel != null)
         {
             pausePanel.SetActive(true);
+            Debug.Log("[PauseMenu] Pause panel is now ACTIVE");
+        }
+        else
+        {
+            Debug.LogError("[PauseMenu] Pause panel is NULL!");
         }
 
         // Hide pause button when menu is open
@@ -171,6 +183,7 @@ public class PauseMenu : MonoBehaviour
     // Restart current level
     public void RestartLevel()
     {
+        Debug.Log("[PauseMenu] ===== RESTART LEVEL CLICKED =====");
         Debug.Log("[PauseMenu] Restarting level");
 
         // Unpause before loading

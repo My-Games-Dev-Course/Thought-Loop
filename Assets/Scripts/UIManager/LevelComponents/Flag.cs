@@ -117,7 +117,7 @@ public class Flag : MonoBehaviour
     //            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     //            int nextScene = currentSceneIndex + 1;
 
-    //            if (nextScene < SceneManager.sceneCountInBuildSettings)
+    //            if (nextScene < SceneManager.sceneCountInBuildSettings) 
     //            {
     //                Debug.Log($"[Flag] Loading next scene in build order: {nextScene}");
     //                LoadSceneWithFade(nextScene);
