@@ -1,9 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Collections;
 
-// Pause menu with continue, restart level, and restart game
 public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu Instance { get; private set; }
@@ -15,14 +14,16 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button restartGameButton;
 
     [Header("Pause Button (Optional)")]
-    [SerializeField] private Button pauseButton; // Button to open pause menu
+    [SerializeField] private Button pauseButton;
 
     [Header("Settings")]
     [SerializeField] private KeyCode pauseKey = KeyCode.Escape;
-    [SerializeField] private string firstLevelName = "Level1";
+    [SerializeField] private string firstLevelName = "Tutorial1";
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
 
     private bool isPaused = false;
-    private bool justPaused = false; // Prevent immediate unpause
+    private bool justPaused = false;
+    private UnityEngine.EventSystems.EventSystem cachedEventSystem;
 
     void Awake()
     {
@@ -37,18 +38,17 @@ public class PauseMenu : MonoBehaviour
             return;
         }
 
-        // Make sure pause panel blocks clicks but doesn't respond to them
+        // Make sure pause panel blocks clicks
         if (pausePanel != null)
         {
             Image panelImage = pausePanel.GetComponent<Image>();
             if (panelImage == null)
             {
                 panelImage = pausePanel.AddComponent<Image>();
-                panelImage.color = new Color(0, 0, 0, 0.8f); // Dark semi-transparent
+                panelImage.color = new Color(0, 0, 0, 0.8f);
             }
-            panelImage.raycastTarget = true; // Block clicks through panel
+            panelImage.raycastTarget = true;
 
-            // Remove any Button component from panel if exists
             Button panelButton = pausePanel.GetComponent<Button>();
             if (panelButton != null)
             {
@@ -75,7 +75,6 @@ public class PauseMenu : MonoBehaviour
             restartGameButton.onClick.AddListener(RestartGame);
         }
 
-        // Connect pause button if exists
         if (pauseButton != null)
         {
             pauseButton.onClick.RemoveAllListeners();
@@ -104,10 +103,15 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-        // Prevent Enter from doing anything while paused
-        if (isPaused && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
+        // Block Enter key completely when paused
+        if (isPaused)
         {
-            // Key press handled here to avoid conflicts
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                // Consume the key to prevent any action
+                Input.ResetInputAxes();
+                return;
+            }
         }
     }
 
@@ -116,34 +120,24 @@ public class PauseMenu : MonoBehaviour
     {
         if (isPaused)
         {
-            Debug.LogWarning("[PauseMenu] Already paused, ignoring");
             return;
         }
 
-        Debug.Log("[PauseMenu] ===== PAUSE BUTTON CLICKED =====");
-        Debug.Log("[PauseMenu] Opening pause menu...");
-
         isPaused = true;
         justPaused = true;
-        Time.timeScale = 0f; // Freeze game
+        Time.timeScale = 0f;
 
         if (pausePanel != null)
         {
             pausePanel.SetActive(true);
-            Debug.Log("[PauseMenu] Pause panel is now ACTIVE");
-        }
-        else
-        {
-            Debug.LogError("[PauseMenu] Pause panel is NULL!");
         }
 
-        // Hide pause button when menu is open
         if (pauseButton != null)
         {
             pauseButton.gameObject.SetActive(false);
         }
 
-        // Allow toggle after short delay
+        DisableButtonNavigation();
         StartCoroutine(ResetJustPaused());
     }
 
@@ -151,7 +145,6 @@ public class PauseMenu : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(0.2f);
         justPaused = false;
-        Debug.Log("[PauseMenu] Can now unpause");
     }
 
     // Close pause menu and continue
@@ -159,60 +152,48 @@ public class PauseMenu : MonoBehaviour
     {
         if (!isPaused)
         {
-            Debug.LogWarning("[PauseMenu] Not paused, ignoring");
             return;
         }
 
-        Debug.Log("[PauseMenu] Game resumed");
-
         isPaused = false;
-        Time.timeScale = 1f; // Unfreeze game
+        Time.timeScale = 1f;
 
         if (pausePanel != null)
         {
             pausePanel.SetActive(false);
         }
 
-        // Show pause button again
         if (pauseButton != null)
         {
             pauseButton.gameObject.SetActive(true);
         }
+
+        EnableButtonNavigation();
     }
 
     // Restart current level
     public void RestartLevel()
     {
-        Debug.Log("[PauseMenu] ===== RESTART LEVEL CLICKED =====");
-        Debug.Log("[PauseMenu] Restarting level");
-
-        // Unpause before loading
         Time.timeScale = 1f;
         isPaused = false;
 
-        // Reload current scene
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.buildIndex);
     }
 
-    // Restart entire game from first level
+    // Return to main menu
     public void RestartGame()
     {
-        Debug.Log("[PauseMenu] Restarting game");
-
-        // Unpause before loading
         Time.timeScale = 1f;
         isPaused = false;
 
-        // Load first level
-        if (!string.IsNullOrEmpty(firstLevelName))
+        if (SceneFader.Instance != null)
         {
-            SceneManager.LoadScene(firstLevelName);
+            SceneFader.Instance.FadeToScene(mainMenuSceneName);
         }
         else
         {
-            // Fallback: load scene at build index 0
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(mainMenuSceneName);
         }
     }
 
@@ -222,9 +203,68 @@ public class PauseMenu : MonoBehaviour
         return isPaused;
     }
 
+    // Disable keyboard navigation on buttons
+    private void DisableButtonNavigation()
+    {
+        cachedEventSystem = UnityEngine.EventSystems.EventSystem.current;
+
+        if (continueButton != null)
+        {
+            var nav = continueButton.navigation;
+            nav.mode = Navigation.Mode.None;
+            continueButton.navigation = nav;
+        }
+
+        if (restartLevelButton != null)
+        {
+            var nav = restartLevelButton.navigation;
+            nav.mode = Navigation.Mode.None;
+            restartLevelButton.navigation = nav;
+        }
+
+        if (restartGameButton != null)
+        {
+            var nav = restartGameButton.navigation;
+            nav.mode = Navigation.Mode.None;
+            restartGameButton.navigation = nav;
+        }
+
+        // Clear selected object to prevent keyboard input
+        if (cachedEventSystem != null)
+        {
+            cachedEventSystem.SetSelectedGameObject(null);
+        }
+    }
+
+    // Re-enable keyboard navigation
+    private void EnableButtonNavigation()
+    {
+        if (continueButton != null)
+        {
+            var nav = continueButton.navigation;
+            nav.mode = Navigation.Mode.Automatic;
+            continueButton.navigation = nav;
+        }
+
+        if (restartLevelButton != null)
+        {
+            var nav = restartLevelButton.navigation;
+            nav.mode = Navigation.Mode.Automatic;
+            restartLevelButton.navigation = nav;
+        }
+
+        if (restartGameButton != null)
+        {
+            var nav = restartGameButton.navigation;
+            nav.mode = Navigation.Mode.Automatic;
+            restartGameButton.navigation = nav;
+        }
+    }
+
     void OnDestroy()
     {
         // Make sure game is unpaused when destroyed
+
         Time.timeScale = 1f;
     }
 }
