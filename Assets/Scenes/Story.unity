@@ -777,12 +777,16 @@ PrefabInstance:
       value: 56.254894
       objectReference: {fileID: 0}
     - target: {fileID: 4283863031091102745, guid: 3ee4eb5106a229e4899f359857230969, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4283863031091102745, guid: 3ee4eb5106a229e4899f359857230969, type: 3}
       propertyPath: sceneIndex
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4283863031091102745, guid: 3ee4eb5106a229e4899f359857230969, type: 3}
       propertyPath: firstSceneName
-      value: Tutorial1
+      value: MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 6595429902393924283, guid: 3ee4eb5106a229e4899f359857230969, type: 3}
       propertyPath: m_Pivot.x

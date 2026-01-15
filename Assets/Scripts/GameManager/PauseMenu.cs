@@ -90,8 +90,11 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        // Toggle pause with escape key
-        if (Input.GetKeyDown(pauseKey) && !justPaused)
+        // Don't allow pause if victory popup is showing
+        bool victoryIsShowing = VictoryPopup.Instance != null && VictoryPopup.Instance.IsShowing();
+
+        // Toggle pause with escape key (only if victory is not showing)
+        if (!victoryIsShowing && Input.GetKeyDown(pauseKey) && !justPaused)
         {
             if (isPaused)
             {
@@ -174,6 +177,12 @@ public class PauseMenu : MonoBehaviour
     // Restart current level
     public void RestartLevel()
     {
+        // Hide pause panel immediately
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+
         Time.timeScale = 1f;
         isPaused = false;
 
@@ -184,15 +193,26 @@ public class PauseMenu : MonoBehaviour
     // Return to main menu
     public void RestartGame()
     {
+        Debug.Log("[PauseMenu] RestartGame clicked!");
+        Debug.Log($"[PauseMenu] Loading scene: {mainMenuSceneName}");
+
+        // Hide pause panel immediately
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+
         Time.timeScale = 1f;
         isPaused = false;
 
         if (SceneFader.Instance != null)
         {
+            Debug.Log("[PauseMenu] Using SceneFader");
             SceneFader.Instance.FadeToScene(mainMenuSceneName);
         }
         else
         {
+            Debug.Log("[PauseMenu] Loading directly without fade");
             SceneManager.LoadScene(mainMenuSceneName);
         }
     }
@@ -263,8 +283,6 @@ public class PauseMenu : MonoBehaviour
 
     void OnDestroy()
     {
-        // Make sure game is unpaused when destroyed
-
         Time.timeScale = 1f;
     }
 }

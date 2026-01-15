@@ -127,6 +127,11 @@ public class VictoryPopup : MonoBehaviour
         Time.timeScale = ResumeGame;
         isShowing = false;
     }
+    // Check if victory popup is currently showing
+    public bool IsShowing()
+    {
+        return isShowing;
+    }
 
     private void OnNextLevelClicked()
     {

@@ -4,7 +4,7 @@ public class StartGameButton : MonoBehaviour
 {
     [Header("Scene to Load")]
     [Tooltip("Name of the first level/tutorial scene")]
-    [SerializeField] private string firstSceneName = "Tutorial1";
+    [SerializeField] private string firstSceneName = "MainMenu";
 
     [Header("Alternative: Use Build Index")]
     [Tooltip("If you prefer to use build index instead of name")]
