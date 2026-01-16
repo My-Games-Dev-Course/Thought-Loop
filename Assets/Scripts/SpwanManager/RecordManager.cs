@@ -9,6 +9,9 @@ public class RecorderManager : MonoBehaviour
     [SerializeField] private bool isRecording = true;
     [SerializeField] private float frameNumber = 50f;
 
+    // NEW: Track pause state
+    private bool isPaused = false;
+
     // Store position, rotation, scale, flipX, and animation states
     private List<Vector2> positions = new List<Vector2>();
     private List<Quaternion> rotations = new List<Quaternion>();
@@ -39,7 +42,8 @@ public class RecorderManager : MonoBehaviour
 
     void Update()
     {
-        if (isRecording && player != null)
+        // CHANGED: Only record if recording is active AND not paused
+        if (isRecording && !isPaused && player != null)
         {
             positions.Add(player.transform.position);
             rotations.Add(player.transform.rotation);
@@ -52,6 +56,26 @@ public class RecorderManager : MonoBehaviour
             {
                 Debug.Log($"[RecorderManager] Recorded {positions.Count} frames | Current pos: {player.transform.position}");
             }
+        }
+    }
+
+    // NEW: Pause recording (called by PauseMenu)
+    public void PauseRecording()
+    {
+        if (isRecording && !isPaused)
+        {
+            isPaused = true;
+            Debug.Log("[RecorderManager] Recording PAUSED");
+        }
+    }
+
+    // NEW: Resume recording (called by PauseMenu)
+    public void ResumeRecording()
+    {
+        if (isRecording && isPaused)
+        {
+            isPaused = false;
+            Debug.Log("[RecorderManager] Recording RESUMED");
         }
     }
 
@@ -83,6 +107,7 @@ public class RecorderManager : MonoBehaviour
     public List<bool> GetIsRunningStates() => isRunningStates;
 
     public List<bool> GetIsJumpingStates() => isJumpingStates;
+
     public void StopRecording()
     {
         isRecording = false;

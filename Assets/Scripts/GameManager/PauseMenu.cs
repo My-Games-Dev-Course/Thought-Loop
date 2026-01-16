@@ -21,6 +21,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private string firstLevelName = "Tutorial1";
     [SerializeField] private string mainMenuSceneName = "MainMenu";
 
+    [Header("Recording System (Optional - Auto-finds if not set)")]
+    [SerializeField] private RecorderManager recorderManager;
+    [SerializeField] private RecorderManagerMult recorderManagerMult;
+
     private bool isPaused = false;
     private bool justPaused = false;
     private UnityEngine.EventSystems.EventSystem cachedEventSystem;
@@ -36,6 +40,25 @@ public class PauseMenu : MonoBehaviour
         {
             Destroy(gameObject);
             return;
+        }
+
+        // Auto-find recorder managers if not assigned
+        if (recorderManager == null)
+        {
+            recorderManager = FindObjectOfType<RecorderManager>();
+            if (recorderManager != null)
+            {
+                Debug.Log("[PauseMenu] Auto-found RecorderManager");
+            }
+        }
+
+        if (recorderManagerMult == null)
+        {
+            recorderManagerMult = FindObjectOfType<RecorderManagerMult>();
+            if (recorderManagerMult != null)
+            {
+                Debug.Log("[PauseMenu] Auto-found RecorderManagerMult");
+            }
         }
 
         // Make sure pause panel blocks clicks
@@ -140,6 +163,9 @@ public class PauseMenu : MonoBehaviour
             pauseButton.gameObject.SetActive(false);
         }
 
+        // NEW: Pause recording
+        PauseRecording();
+
         DisableButtonNavigation();
         StartCoroutine(ResetJustPaused());
     }
@@ -171,7 +197,38 @@ public class PauseMenu : MonoBehaviour
             pauseButton.gameObject.SetActive(true);
         }
 
+        // NEW: Resume recording
+        ResumeRecording();
+
         EnableButtonNavigation();
+    }
+
+    // NEW: Pause the recording system
+    private void PauseRecording()
+    {
+        if (recorderManager != null)
+        {
+            recorderManager.PauseRecording();
+        }
+
+        if (recorderManagerMult != null)
+        {
+            recorderManagerMult.PauseRecording();
+        }
+    }
+
+    // NEW: Resume the recording system
+    private void ResumeRecording()
+    {
+        if (recorderManager != null)
+        {
+            recorderManager.ResumeRecording();
+        }
+
+        if (recorderManagerMult != null)
+        {
+            recorderManagerMult.ResumeRecording();
+        }
     }
 
     // Restart current level
