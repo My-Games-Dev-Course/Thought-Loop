@@ -204,6 +204,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HintPopup
       objectReference: {fileID: 0}
+    - target: {fileID: 2551987635996302661, guid: ea9c7bbdc71c96d408376ea591101c0c, type: 3}
+      propertyPath: messageText
+      value: 
+      objectReference: {fileID: 21072944}
     - target: {fileID: 2914803194731133739, guid: ea9c7bbdc71c96d408376ea591101c0c, type: 3}
       propertyPath: m_fontSize
       value: 32
@@ -302,6 +306,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7068850854341787147, guid: ea9c7bbdc71c96d408376ea591101c0c, type: 3}
   m_PrefabInstance: {fileID: 21072942}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &21072944 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2914803194731133739, guid: ea9c7bbdc71c96d408376ea591101c0c, type: 3}
+  m_PrefabInstance: {fileID: 21072942}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &51485406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -673,7 +688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.58
+      value: 1.56
       objectReference: {fileID: 0}
     - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1559,8 +1574,8 @@ RectTransform:
   - {fileID: 2084402492}
   - {fileID: 1377464166}
   - {fileID: 165144720}
-  - {fileID: 21072943}
   - {fileID: 757561632}
+  - {fileID: 21072943}
   - {fileID: 1398889617}
   - {fileID: 1085837172}
   - {fileID: 157063139}
@@ -2702,6 +2717,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 763935508}
     m_Modifications:
+    - target: {fileID: 897500181814737951, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1160306370821401529, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

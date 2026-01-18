@@ -113,11 +113,14 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        // Don't allow pause if victory popup is showing
-        bool victoryIsShowing = VictoryPopup.Instance != null && VictoryPopup.Instance.IsShowing();
+        // Check if any popup is showing
+        if (IsAnyPopupShowing())
+        {
+            return; // Block pause if popup is showing
+        }
 
-        // Toggle pause with escape key (only if victory is not showing)
-        if (!victoryIsShowing && Input.GetKeyDown(pauseKey) && !justPaused)
+        // Toggle pause with escape key
+        if (Input.GetKeyDown(pauseKey) && !justPaused)
         {
             if (isPaused)
             {
@@ -139,6 +142,24 @@ public class PauseMenu : MonoBehaviour
                 return;
             }
         }
+    }
+
+    // Check if HintPopup or VictoryPopup is showing
+    private bool IsAnyPopupShowing()
+    {
+        // Check HintPopup
+        if (HintPopup.Instance != null && HintPopup.Instance.IsShowing())
+        {
+            return true;
+        }
+
+        // Check VictoryPopup
+        if (VictoryPopup.Instance != null && VictoryPopup.Instance.IsShowing())
+        {
+            return true;
+        }
+
+        return false;
     }
 
     // Open pause menu
@@ -163,7 +184,7 @@ public class PauseMenu : MonoBehaviour
             pauseButton.gameObject.SetActive(false);
         }
 
-        // NEW: Pause recording
+        // Pause recording
         PauseRecording();
 
         DisableButtonNavigation();
@@ -197,13 +218,13 @@ public class PauseMenu : MonoBehaviour
             pauseButton.gameObject.SetActive(true);
         }
 
-        // NEW: Resume recording
+        // Resume recording
         ResumeRecording();
 
         EnableButtonNavigation();
     }
 
-    // NEW: Pause the recording system
+    // Pause the recording system
     private void PauseRecording()
     {
         if (recorderManager != null)
@@ -217,7 +238,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    // NEW: Resume the recording system
+    // Resume the recording system
     private void ResumeRecording()
     {
         if (recorderManager != null)

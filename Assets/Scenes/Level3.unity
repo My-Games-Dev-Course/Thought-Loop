@@ -1722,6 +1722,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VictoryPopupManager
       objectReference: {fileID: 0}
+    - target: {fileID: 9137182427604456251, guid: 471350231e9fe6f4b8c9ae2328fb219e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2176,6 +2180,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 763935508}
     m_Modifications:
+    - target: {fileID: 897500181814737951, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1160306370821401529, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2255,6 +2263,10 @@ PrefabInstance:
     - target: {fileID: 1160306370821401529, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2280961414569314684, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
+      propertyPath: m_Color.a
+      value: 0.70980394
       objectReference: {fileID: 0}
     - target: {fileID: 2805290576002872204, guid: 50c540375181a6d4684eb4a63ae4a2e2, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2374,11 +2386,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.13
+      value: 2.33
       objectReference: {fileID: 0}
     - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.42
+      value: -0.38
       objectReference: {fileID: 0}
     - target: {fileID: 2321918266341038690, guid: ec6b1507fece61f48a6ca94f930b9882, type: 3}
       propertyPath: m_LocalPosition.z
